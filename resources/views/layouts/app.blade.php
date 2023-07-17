@@ -70,12 +70,7 @@
                             <a class="nav-link" href="{{ route('books.index') }}">{{ __('Books List') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('borrow.index') }}">{{ __('Borrow List') }}</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('borrows.index') }}">{{ __('Borrows') }}</a>
+                            <a class="nav-link" href="{{ route('borrows.index') }}">{{ __('Borrow List') }}</a>
                         </li>
                     </ul>
 
