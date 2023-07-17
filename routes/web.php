@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     // route ke halaman list buku
     Route::resource('books', BookController::class);
-    Route::resource('borrow', BorrowController::class);
+    // route ke halaman list peminjam
+    Route::resource('borrows', BorrowController::class);
 });
+
