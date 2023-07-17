@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained('users');
+            $table->string('name');
+            $table->string('contact');
+            $table->foreignId('book_id')->constrained();
+            $table->date('borrowed_date');
+            $table->date('return_date')->default(now()->addDays(7));
+            $table->timestamps();
+
+
+
+
+             // $table->foreignId('user_id')->constrained('users');
             // $table->foreignId('book_id')->constrained('books');
             // $table->string('phone_number');
             // $table->date('borrow_date');
@@ -26,15 +36,9 @@ return new class extends Migration
             // $table->date('tanggal_pinjam');
             // $table->date('tanggal_pengembalian')->nullable();
 
-            $table->string('name');
-            $table->string('contact');
             // $table->string('title');
             // $table->string('genre');
             // $table->unsignedBigInteger('book_id');
-            $table->foreignId('book_id')->constrained();
-            $table->date('borrowed_date');
-            $table->date('return_date')->default(now()->addDays(7));
-            $table->timestamps();
 
             // $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
         });
