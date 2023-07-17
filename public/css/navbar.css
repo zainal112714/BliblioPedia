@@ -1,0 +1,12 @@
+.navbar-logo {
+    width: 125px;
+    /* Atur lebar logo */
+    height: auto;
+    /* Atur tinggi logo agar tetap proporsional */
+}
+
+@media (max-width: 768px) {
+.navbar {
+        background-color: #293F59;
+    }
+}
