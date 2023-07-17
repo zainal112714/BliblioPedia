@@ -8,7 +8,7 @@
     @vite('resources/sass/app.scss')
 </head>
 <body>
-    {{-- <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <!-- {{-- <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand mb-0 h1"><i class="bi-hexagon-fill me-2"></i>Data Master</a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
@@ -22,7 +22,7 @@
                 <a href="" class="btn btn-outline-light my-2 ms-md-auto"><i class="bi-person-circle me-1"></i>My Profile</a>
             </div>
         </div>
-    </nav> --}}
+    </nav> --}} -->
 
     <div class="container-sm mt-5">
         <form action="{{ route('books.store') }}" method="POST">
