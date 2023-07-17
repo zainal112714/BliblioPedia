@@ -34,6 +34,11 @@
                             <a class="nav-link" href="{{ route('books.index') }}">{{ __('Books') }}</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('borrows.index') }}">{{ __('Borrows') }}</a>
+                        </li>
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

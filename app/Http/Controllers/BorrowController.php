@@ -6,23 +6,27 @@ use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+// untuk model Borrow
+use App\Models\Borrow;
+// untuk model book
 use App\Models\Book;
 
 
-class BookController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pageTitle= 'Books List';
+        $pageTitle= 'List Peminjam';
+        // ambil data
+        // $borrows = Borrow::with('book')->get();
         // eloquent
-        $books = Book::all(); // Mengambil semua data buku dari database menggunakan model Book
-
-        return view('book.index', [
+        $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
+        return view('borrow.index', [
             'pageTitle' => $pageTitle,
-            'books' => $books
+            'borrows' => $borrows
         ]);
     }
 
@@ -31,14 +35,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        $pageTitle= 'Create Book';
-        // // SQL QUERY BUILDER
-        // $books = DB::table('books')->get();
-
-
-        // ELOQUENT
-        $books = book::all();
-        return view('book.create', [
+        $pageTitle= 'Create Peminjam';
+        // $borrows = DB::table('borrows')->get();
+        $books = Book::all();
+        return view('borrow.create', [
             'pageTitle' => $pageTitle,
             'books' => $books
         ]);
@@ -52,30 +52,33 @@ class BookController extends Controller
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
          $messages = [
             'required' => ':Attribute harus diisi.',
+            'numeric' => 'Isi :attribute dengan angka.'
         ];
 
         $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'contact' => 'required|numeric',
             'title' => 'required',
             'genre' => 'required',
-            'author' => 'required',
-            'publisher' => 'required',
-            'synopsis' => 'required',
+            'borrowed_date' => 'required',
+            'return_date' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Simpan data buku ke database dengan eloquent
+        // Simpan data buku ke database
         $book = new Book();
+        $book->name = $request->input('name');
+        $book->contact = $request->input('contact');
         $book->title = $request->input('title');
         $book->genre = $request->input('genre');
-        $book->author = $request->input('author');
-        $book->publisher = $request->input('publisher');
-        $book->synopsis = $request->input('synopsis');
+        $book->borrowed_date = $request->input('borrowed_date');
+        $book->return_date = $request->input('return_date');
         $book->save();
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully.');
+        return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
     /**
