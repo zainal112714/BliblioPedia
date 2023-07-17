@@ -42,6 +42,7 @@ class BorrowSeeder extends Seeder
                 'borrowed_date' => '2023-07-17',
                 'return_date' => '2023-07-24',
             ],
+
             // [
             //     'name' => 'John Doe',
             //     'book_id' => '1',

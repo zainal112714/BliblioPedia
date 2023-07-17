@@ -27,6 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {{-- coba tambah ini --}}
                     {{-- @php
                     $books = App\Models\Book::all();

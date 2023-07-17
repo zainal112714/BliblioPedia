@@ -31,3 +31,4 @@ Route::middleware(['auth'])->group(function () {
     // route ke halaman list peminjam
     Route::resource('borrows', BorrowController::class);
 });
+

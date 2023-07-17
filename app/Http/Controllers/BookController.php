@@ -35,7 +35,6 @@ class BookController extends Controller
         // // SQL QUERY BUILDER
         // $books = DB::table('books')->get();
 
-
         // ELOQUENT
         $books = book::all();
         return view('book.create', [

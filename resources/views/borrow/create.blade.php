@@ -145,3 +145,4 @@
     @vite('resources/sass/app.scss')
 </body>
 </html>
+

@@ -22,7 +22,6 @@ return new class extends Migration
 
 
 
-
              // $table->foreignId('user_id')->constrained('users');
             // $table->foreignId('book_id')->constrained('books');
             // $table->string('phone_number');
