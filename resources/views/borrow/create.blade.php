@@ -1,3 +1,72 @@
+{{-- @extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="container mt-4">
+            <div class="row mb-0">
+                <div class="col-lg-9 col-xl-10">
+                    <h4 class="mb-3">{{ $pageTitle }}</h4>
+                </div>
+                <div class="col-lg-3 col-xl-2">
+                    <div class="d-grid gap-2">
+                        <a href="{{ route('borrows.index') }}" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="{{ route('borrows.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Borrower Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="Enter Borrower Name">
+                            @error('name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control @error('contact') is-invalid @enderror" name="contact" id="contact" value="{{ old('contact') }}" placeholder="Enter Contact Number">
+                            @error('contact')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="book_id" class="form-label">Book</label>
+                            <select class="form-select @error('book_id') is-invalid @enderror" name="book_id" id="book_id">
+                                <option value="">Select Book</option>
+                                @foreach($books as $book)
+                                    <option value="{{ $book->id }}">{{ $book->title }}</option>
+                                @endforeach
+                            </select>
+                            @error('book_id')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="borrowed_date" class="form-label">Borrowed Date</label>
+                            <input type="date" class="form-control @error('borrowed_date') is-invalid @enderror" name="borrowed_date" id="borrowed_date" value="{{ old('borrowed_date') }}">
+                            @error('borrowed_date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="return_date" class="form-label">Return Date</label>
+                            <input type="date" class="form-control @error('return_date') is-invalid @enderror" name="return_date" id="return_date" value="{{ old('return_date', now()->addDays(7)->format('Y-m-d')) }}" readonly>
+                            @error('return_date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection --}}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,46 +88,44 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="borrower_name" class="form-label">Borrower Name</label>
-                            <input type="text" class="form-control @error('borrower_name') is-invalid @enderror" name="borrower_name" id="borrower_name" value="{{ old('borrower_name') }}" placeholder="Enter Borrower Name">
-                            @error('borrower_name')
-                            <p class="text-danger">{{ $message }}</p>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Borrower Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="Enter Borrower Name">
+                            @error('name')
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="book_title" class="form-label">Book Title</label>
-                            <input type="text" class="form-control @error('book_title') is-invalid @enderror" name="book_title" id="book_title" value="{{ old('book_title') }}" placeholder="Enter Book Title">
-                            @error('book_title')
-                            <p class="text-danger">{{ $message }}</p>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control @error('contact') is-invalid @enderror" name="contact" id="contact" value="{{ old('contact') }}" placeholder="Enter Contact Number">
+                            @error('contact')
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="genre" class="form-label">Genre</label>
-                            <input type="text" class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre" value="{{ old('genre') }}" placeholder="Enter Genre">
-                            @error('genre')
-                            <p class="text-danger">{{ $message }}</p>
+                        <div class="mb-3">
+                            <label for="book_id" class="form-label">Book</label>
+                            <select class="form-select @error('book_id') is-invalid @enderror" name="book_id" id="book_id">
+                                <option value="">Select Book</option>
+                                @foreach($books as $book)
+                                    <option value="{{ $book->id }}">{{ $book->title }}</option>
+                                @endforeach
+                            </select>
+                            @error('book_id')
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="contact_number" class="form-label">Contact Number</label>
-                            <input type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" id="contact_number" value="{{ old('contact_number') }}" placeholder="Enter Contact Number">
-                            @error('contact_number')
-                            <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="mb-3">
                             <label for="borrowed_date" class="form-label">Borrowed Date</label>
                             <input type="date" class="form-control @error('borrowed_date') is-invalid @enderror" name="borrowed_date" id="borrowed_date" value="{{ old('borrowed_date') }}">
                             @error('borrowed_date')
-                            <p class="text-danger">{{ $message }}</p>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="mb-3">
                             <label for="return_date" class="form-label">Return Date</label>
-                            <input type="date" class="form-control @error('return_date') is-invalid @enderror" name="return_date" id="return_date" value="{{ old('return_date') }}">
+                            <input type="date" class="form-control @error('return_date') is-invalid @enderror" name="return_date" id="return_date" value="{{ old('return_date', now()->addDays(7)->format('Y-m-d')) }}" readonly>
                             @error('return_date')
-                            <p class="text-danger">{{ $message }}</p>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -78,3 +145,4 @@
     @vite('resources/sass/app.scss')
 </body>
 </html>
+
