@@ -51,9 +51,13 @@ class BookController extends Controller
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
          $messages = [
             'required' => ':Attribute harus diisi.',
+            'numeric' => 'Isi :attribute dengan angka.',
+            // 'size' => 'Panjang :attribute harus 3 karakter.'
+            'digits' => ':Attribute harus berupa :digits digit.',
         ];
-
+        // validasi inputan
         $validator = Validator::make($request->all(), [
+            'code' => 'required|numeric|unique:books,code|digits:3', //untuk memastikan kolom kode buku diisi dengan unik 3 karakter
             'title' => 'required',
             'genre' => 'required',
             'author' => 'required',
@@ -67,6 +71,7 @@ class BookController extends Controller
 
         // Simpan data buku ke database dengan eloquent
         $book = new Book();
+        $book->code = $request->input('code');
         $book->title = $request->input('title');
         $book->genre = $request->input('genre');
         $book->author = $request->input('author');
