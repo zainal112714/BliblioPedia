@@ -15,6 +15,7 @@ class BookSeeder extends Seeder
     {
         DB::table('books')->insert([
             [
+                'code' => '001',
                 'title' => 'Book Title 1',
                 'genre' => 'Fiction',
                 'author' => 'Author 1',
@@ -22,6 +23,7 @@ class BookSeeder extends Seeder
                 'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
             ],
             [
+                'code' => '002',
                 'title' => 'Book Title 2',
                 'genre' => 'Thriller',
                 'author' => 'Author 2',
@@ -29,6 +31,7 @@ class BookSeeder extends Seeder
                 'synopsis' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
             ],
             [
+                'code' => '003',
                 'title' => 'Book Title 3',
                 'genre' => 'Romance',
                 'author' => 'Author 3',
