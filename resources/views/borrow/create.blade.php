@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container-sm mt-5">
-        <form action="{{ route('borrows.store') }}" method="POST">
+        <form action="{{ route('borrows.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row justify-content-center">
                 <div class="p-5 bg-light rounded-3 border col-xl-6">
@@ -59,6 +59,11 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Upload File Identitas</label>
+                            <input type="file" class="form-control" name="file" id="file">
+                        </div>
+
                     </div>
                     <hr>
                     <div class="row">

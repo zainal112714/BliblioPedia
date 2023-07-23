@@ -69,6 +69,16 @@ class BorrowController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Simpan file yang diunggah (jika ada)
+        $file = $request->file('file');
+        if ($file != null) {
+            $originalfile = $file->getClientOriginalName();
+            $encryptedfile = $file->hashName();
+
+            // penyimpanan file
+            $file->store('public/files');
+        }
+
         // Simpan data buku ke database
         $borrow = new Borrow();
         $borrow->name = $request->input('name');
@@ -78,6 +88,11 @@ class BorrowController extends Controller
         // $borrow->genre = $request->input('genre');
         $borrow->borrowed_date = $request->input('borrowed_date');
         $borrow->return_date = $request->input('return_date');
+
+        if ($file != null) {
+            $borrow->original_file = $originalfile;
+            $borrow->encrypted_file = $encryptedfile;
+        }
         $borrow->save();
 
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
