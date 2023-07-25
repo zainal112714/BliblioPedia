@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Book;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 
 class BookController extends Controller
@@ -112,5 +115,19 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportExcel() //exportExcel iki di panggil nang ndi engkok
+    {
+        return Excel::download(new BooksExport, 'books.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $books = Book::all();
+
+        $pdf = PDF::loadView('book.export_pdf', compact('books'));
+
+        return $pdf->download('books.pdf');
     }
 }
