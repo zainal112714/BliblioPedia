@@ -18,6 +18,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
+
             'code' => fake()->unique()->numberBetween(100, 999),
             'title' => fake()->unique()->sentence(),
             'genre' => fake()->randomElement(['Novel', 'Fiksi Ilmiah', 'Fantasi', 'Misteri', 'Drama', 'Puisi', 'Cerita Pendek', 'Biografi', 'Ensiklopedia', 'Buku Anak-Anak']),
