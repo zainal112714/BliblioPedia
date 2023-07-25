@@ -32,3 +32,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('borrows', BorrowController::class);
 });
 
+Route::get('exportExcel', [BookController::class, 'exportExcel'])->name('books.exportExcel');
+
+Route::get('exportExcels', [BorrowController::class, 'exportExcels'])->name('borrows.exportExcels');
+
+Route::get('exportPdf', [BookController::class, 'exportPdf'])->name('books.exportPdf');
+
+Route::get('exportPdfs', [BorrowController::class, 'exportPdfs'])->name('borrows.exportPdfs');

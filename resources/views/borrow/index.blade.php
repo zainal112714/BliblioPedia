@@ -7,10 +7,25 @@
             <div class="col-lg-9 col-xl-10">
                 <h4 class="mb-3">{{ $pageTitle }}</h4>
             </div>
-            <div class="col-lg-3 col-xl-2">
-                <div class="d-grid gap-2">
-                    <a href="{{ route('borrows.create') }}" class="btn btn-primary">Create Pinjam</a>
-                </div>
+            <div class="col-lg-3 col-xl-6">
+                <ul class="list-inline mb-0 float-end">
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.exportExcels') }}" class="btn btn-outline-success">
+                            <i class="bi bi-download me-1"></i>to Excel
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.exportPdfs') }}" class="btn btn-outline-danger">
+                            <i class="bi bi-download me-1"></i>to PDF
+                        </a>
+                    </li>
+                    <li class="list-inline-item">|</li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i>Create Borrow
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <hr>

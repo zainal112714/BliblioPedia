@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BorrowsExport;
+use PDF;
 use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
-use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BorrowController extends Controller
 {
@@ -113,5 +115,19 @@ class BorrowController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportExcels()
+    {
+        return Excel::download(new BorrowsExport, 'borrows.xlsx');
+    }
+
+    public function exportPdfs()
+    {
+        $borrows = Borrow::all();
+
+        $pdf = PDF::loadView('borrow.export_pdf', compact('borrows'));
+
+        return $pdf->download('borrows.pdf');
     }
 }
