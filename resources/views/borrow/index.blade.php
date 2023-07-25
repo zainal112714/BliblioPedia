@@ -36,10 +36,10 @@
                         <th>Nama Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Genre</th>
-                        <th>Kontak</th>
-                        <th>Tanggal Pinjam</th>
-                        <th>Tanggal Kembali</th>
-                        <th></th>
+                        <th>Contact Number</th>
+                        <th>Borrowed Date</th>
+                        <th>Return Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
