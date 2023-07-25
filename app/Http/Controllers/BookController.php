@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Book;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 
 class BookController extends Controller
@@ -51,9 +54,13 @@ class BookController extends Controller
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
          $messages = [
             'required' => ':Attribute harus diisi.',
+            'numeric' => 'Isi :attribute dengan angka.',
+            // 'size' => 'Panjang :attribute harus 3 karakter.'
+            'digits' => ':Attribute harus berupa :digits digit.',
         ];
-
+        // validasi inputan
         $validator = Validator::make($request->all(), [
+            'code' => 'required|numeric|unique:books,code|digits:3', //untuk memastikan kolom kode buku diisi dengan unik 3 karakter
             'title' => 'required',
             'genre' => 'required',
             'author' => 'required',
@@ -67,6 +74,7 @@ class BookController extends Controller
 
         // Simpan data buku ke database dengan eloquent
         $book = new Book();
+        $book->code = $request->input('code');
         $book->title = $request->input('title');
         $book->genre = $request->input('genre');
         $book->author = $request->input('author');
@@ -112,5 +120,19 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportExcel() //exportExcel iki di panggil nang ndi engkok
+    {
+        return Excel::download(new BooksExport, 'books.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $books = Book::all();
+
+        $pdf = PDF::loadView('book.export_pdf', compact('books'));
+
+        return $pdf->download('books.pdf');
     }
 }

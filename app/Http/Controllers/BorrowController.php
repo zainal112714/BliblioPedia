@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BorrowsExport;
+use PDF;
 use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BorrowController extends Controller
 {
@@ -57,8 +60,9 @@ class BorrowController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'contact' => 'required|numeric',
-            'title' => 'required',
-            'genre' => 'required',
+            'book_id' => 'required', //validasi untuk book_id yang akan terhubung dengan tabel books
+            // 'title' => 'required',
+            // 'genre' => 'required',
             'borrowed_date' => 'required',
             'return_date' => 'required',
         ], $messages);
@@ -67,15 +71,31 @@ class BorrowController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Simpan file yang diunggah (jika ada)
+        $file = $request->file('file');
+        if ($file != null) {
+            $originalfile = $file->getClientOriginalName();
+            $encryptedfile = $file->hashName();
+
+            // penyimpanan file
+            $file->store('public/files');
+        }
+
         // Simpan data buku ke database
-        $book = new Book();
-        $book->name = $request->input('name');
-        $book->contact = $request->input('contact');
-        $book->title = $request->input('title');
-        $book->genre = $request->input('genre');
-        $book->borrowed_date = $request->input('borrowed_date');
-        $book->return_date = $request->input('return_date');
-        $book->save();
+        $borrow = new Borrow();
+        $borrow->name = $request->input('name');
+        $borrow->contact = $request->input('contact');
+        $borrow->book_id = $request->input('book_id');
+        // $borrow->title = $request->input('title');
+        // $borrow->genre = $request->input('genre');
+        $borrow->borrowed_date = $request->input('borrowed_date');
+        $borrow->return_date = $request->input('return_date');
+
+        if ($file != null) {
+            $borrow->original_file = $originalfile;
+            $borrow->encrypted_file = $encryptedfile;
+        }
+        $borrow->save();
 
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
@@ -110,5 +130,19 @@ class BorrowController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportExcels()
+    {
+        return Excel::download(new BorrowsExport, 'borrows.xlsx');
+    }
+
+    public function exportPdfs()
+    {
+        $borrows = Borrow::all();
+
+        $pdf = PDF::loadView('borrow.export_pdf', compact('borrows'));
+
+        return $pdf->download('borrows.pdf');
     }
 }
