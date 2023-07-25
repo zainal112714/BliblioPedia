@@ -24,7 +24,7 @@
                         <th>Contact Number</th>
                         <th>Borrowed Date</th>
                         <th>Return Date</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
