@@ -82,7 +82,12 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pageTitle = 'Book Detail';
+
+        // ELOQUENT
+        $book = Book::find($id);
+
+        return view('book.show', compact('pageTitle', 'book'));
     }
 
     /**
