@@ -105,7 +105,12 @@ class BorrowController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pageTitle = 'Detail Peminjaman';
+
+        // ELOQUENT
+        $borrow = Borrow::find($id);
+
+        return view('borrow.show', compact('pageTitle', 'borrow'));
     }
 
     /**
@@ -113,7 +118,13 @@ class BorrowController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pageTitle= 'Create Loan';
+        // $borrows = DB::table('borrows')->get();
+        $books = Book::all();
+        return view('borrow.edit', [
+            'pageTitle' => $pageTitle,
+            'books' => $books
+        ]);
     }
 
     /**
