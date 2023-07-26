@@ -22,7 +22,7 @@
                     <li class="list-inline-item">|</li>
                     <li class="list-inline-item">
                         <a href="{{ route('borrows.create') }}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-1"></i>Create Borrow
+                            <i class="bi bi-plus-circle me-1"></i>Make Loan
                         </a>
                     </li>
                 </ul>
@@ -53,8 +53,8 @@
                                 <td>{{ $borrow->return_date }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
-                                        <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                        <a href="{{ route('borrows.show', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
+                                        <a href="{{ route('borrows.edit', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                         <div>
                                             <form action="" method="POST">
                                                 @csrf

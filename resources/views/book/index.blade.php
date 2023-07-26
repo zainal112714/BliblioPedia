@@ -22,7 +22,7 @@
                     <li class="list-inline-item">|</li>
                     <li class="list-inline-item">
                         <a href="{{ route('books.create') }}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-1"></i> Create Book
+                            <i class="bi bi-plus-circle me-1"></i> Make Loan
                         </a>
                     </li>
                 </ul>
