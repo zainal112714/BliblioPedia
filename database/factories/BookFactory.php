@@ -36,6 +36,7 @@ class BookFactory extends Factory
             'author' => $this->faker->name(),
             'publisher' => $this->faker->company(),
             'synopsis' => $this->faker->paragraph(),
+
         ];
     }
 }

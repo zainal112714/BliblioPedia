@@ -7,10 +7,25 @@
             <div class="col-lg-9 col-xl-10">
                 <h4 class="mb-3">{{ $pageTitle }}</h4>
             </div>
-            <div class="col-lg-3 col-xl-2">
-                <div class="d-grid gap-2">
-                    <a href="{{ route('borrows.create') }}" class="btn btn-primary">Create Pinjam</a>
-                </div>
+            <div class="col-lg-6 col-xl-12">
+                <ul class="list-inline mb-0 float-end">
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.exportExcels') }}" class="btn btn-outline-success">
+                            <i class="bi bi-download me-1"></i>to Excel
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.exportPdfs') }}" class="btn btn-outline-danger">
+                            <i class="bi bi-download me-1"></i>to PDF
+                        </a>
+                    </li>
+                    <li class="list-inline-item">|</li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('borrows.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i>Make Loan
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <hr>
@@ -21,10 +36,10 @@
                         <th>Nama Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Genre</th>
-                        <th>Kontak</th>
-                        <th>Tanggal Pinjam</th>
-                        <th>Tanggal Kembali</th>
-                        <th></th>
+                        <th>Contact Number</th>
+                        <th>Borrowed Date</th>
+                        <th>Return Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,8 +53,8 @@
                                 <td>{{ $borrow->return_date }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
-                                        <a href="" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                        <a href="{{ route('borrows.show', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
+                                        <a href="{{ route('borrows.edit', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                         <div>
                                             <form action="" method="POST">
                                                 @csrf
