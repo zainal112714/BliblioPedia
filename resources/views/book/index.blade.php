@@ -7,7 +7,7 @@
             <div class="col-lg-9 col-xl-10">
                 <h4 class="mb-3">{{ $pageTitle }}</h4>
             </div>
-            <div class="col-lg-3 col-xl-6">
+            <div class="col-lg-6 col-xl-12">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
                         <a href="{{ route('books.exportExcel') }}" class="btn btn-outline-success">
