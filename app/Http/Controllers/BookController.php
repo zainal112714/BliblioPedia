@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
+use DataTables;
 
 
 class BookController extends Controller
@@ -21,12 +22,13 @@ class BookController extends Controller
     {
         $pageTitle= 'Books List';
         // eloquent
-        $books = Book::all(); // Mengambil semua data buku dari database menggunakan model Book
+        // $books = Book::all(); // Mengambil semua data buku dari database menggunakan model Book
 
-        return view('book.index', [
-            'pageTitle' => $pageTitle,
-            'books' => $books
-        ]);
+        // return view('book.index', [
+        //     'pageTitle' => $pageTitle,
+        //     'books' => $books
+        // ]);
+        return view('book.index', compact('pageTitle'));
     }
 
     /**
@@ -134,5 +136,20 @@ class BookController extends Controller
         $pdf = PDF::loadView('book.export_pdf', compact('books'));
 
         return $pdf->download('books.pdf');
+    }
+
+
+    // datatable
+    public function getData(Request $request) 
+    {
+        $books = Book::with('borrows');
+        if ($request->ajax()) {
+            return datatables()->of($books)
+                ->addIndexColumn()
+                ->addColumn('actions', function ($book) {
+                    return view('book.actions', compact('book'));
+                })
+                ->toJson();
+        }
     }
 }

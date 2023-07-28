@@ -30,9 +30,11 @@
         </div>
         <hr>
         <div class="table-responsive border p-3 rounded-3">
-            <table class="table table-bordered table-hover table-striped mb-0 bg-white">
+            <table class="table table-bordered table-hover table-striped mb-0 bg-white" id="bookTable">
                 <thead>
                     <tr>
+                        <th>ID</th>
+                        <th>No.</th>
                         <th>Kode Buku</th>
                         <th>Judul</th>
                         <th>Genre</th>
@@ -41,8 +43,45 @@
                         <th>Sinopsis</th>
                         <th></th>
                     </tr>
-                </thead>
-                <tbody>
+                </thead>   
+            </table>
+        </div>
+    </div>
+    @vite('resources/sass/app.scss')
+    @vite('resources/js/app.js')
+    {{-- @stack('scripts') --}}
+<script type="module">
+    $(document).ready( function () {
+        $('#bookTable').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: "/getBooks",
+            columns: [
+                { data: "id", name: "id", visible: false },
+                { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                { data: 'code', name: 'code' },
+                { data: 'title', name: 'title' },
+                { data: 'genre', name: 'genre' },
+                { data: 'author', name: 'author' },
+                { data: 'publisher', name: 'publisher' },
+                { data: 'synopsis', name: 'synopsis' },
+                { data: "actions", name: "actions", orderable: false, searchable: false },
+            ],
+            order: [[0, 'desc']],
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 25, 100, 'ALL'],
+            ],
+        });
+    } );
+</script>
+</div>
+
+@endsection
+
+
+
+{{-- <tbody>
                     @foreach($books as $book)
                     <tr>
                         <td>{{ $book->code }}</td>
@@ -67,11 +106,4 @@
                         </td>
                     </tr>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    @vite('resources/sass/app.scss')
-</div>
-@endsection
+                </tbody>   --}}
