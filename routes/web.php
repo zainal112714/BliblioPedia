@@ -39,3 +39,9 @@ Route::get('exportExcels', [BorrowController::class, 'exportExcels'])->name('bor
 Route::get('exportPdf', [BookController::class, 'exportPdf'])->name('books.exportPdf');
 
 Route::get('exportPdfs', [BorrowController::class, 'exportPdfs'])->name('borrows.exportPdfs');
+
+// Server-side Processing DataTable
+Route::get('getBooks', [BookController::class, 'getData'])->name('books.getData');
+
+
+
