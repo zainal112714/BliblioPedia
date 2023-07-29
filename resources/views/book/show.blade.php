@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="p-5 bg-light rounded-3 col-xl-4 border">
                 <div class="mb-3 text-center">
-                    <i class="bi-person-circle fs-1"></i>
+                    <i class="bi-book fs-1"></i>
                     <h4>Detail Book</h4>
                 </div>
                 <hr>

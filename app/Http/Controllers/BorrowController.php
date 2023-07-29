@@ -26,11 +26,12 @@ class BorrowController extends Controller
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
-        $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
-        return view('borrow.index', [
-            'pageTitle' => $pageTitle,
-            'borrows' => $borrows
-        ]);
+        // $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
+        // return view('borrow.index', [
+        //     'pageTitle' => $pageTitle,
+        //     'borrows' => $borrows
+        // ]);
+        return view('borrow.index', compact('pageTitle'));
     }
 
     /**
@@ -158,4 +159,25 @@ class BorrowController extends Controller
 
         return $pdf->download('borrows.pdf');
     }
+
+    // datatable
+    public function getData(Request $request) 
+    {
+        $borrows = Borrow::with('book');
+        if ($request->ajax()) {
+            return datatables()->of($borrows )
+                ->addIndexColumn()
+                ->addColumn('actions', function ($borrow) {
+                    return view('borrow.actions', compact('borrow'));
+                })
+                ->addColumn('genre', function ($borrow) {
+                    return $borrow->book->genre; // <-- Perbaiki di sini
+                })
+                ->addColumn('return_date', function ($borrow) {
+                    return $borrow->return_date; // <-- Perbaiki di sini
+                })
+                ->toJson();
+        }
+    }
 }
+
