@@ -23,16 +23,18 @@
                     <li class="list-inline-item">
                         <a href="{{ route('borrows.create') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i>Make Loan
-                        </a>
+                        </a>`
                     </li>
                 </ul>
             </div>
         </div>
         <hr>
         <div class="table-responsive border p-3 rounded-3">
-            <table class="table table-bordered table-hover table-striped mb-0 bg-white">
+            <table class="table table-bordered table-hover table-striped mb-0 bg-white" id="borrowTable">
                 <thead>
                     <tr>
+                        <th>ID</th>
+                        <th>No.</th>
                         <th>Nama Peminjam</th>
                         <th>Judul Buku</th>
                         <th>Genre</th>
@@ -42,35 +44,42 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($borrows as $borrow)
-                            <tr>
-                                <td>{{ $borrow->name }}</td>
-                                <td>{{ $borrow->book->code }} - {{ $borrow->book->title }} </td>
-                                <td>{{ $borrow->book->genre }}</td>
-                                <td>{{ $borrow->contact }}</td>
-                                <td>{{ $borrow->borrowed_date }}</td>
-                                <td>{{ $borrow->return_date }}</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="{{ route('borrows.show', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
-                                        <a href="{{ route('borrows.edit', ['borrow' => $borrow->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
-                                        <div>
-                                            <form action="" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                    @endforeach
-                </tbody>
             </table>
         </div>
     </div>
 
     @vite('resources/sass/app.scss')
+
+    <script type="module">
+        $(document).ready ( function () {
+            $('#borrowTable').DataTable( {
+                serverSide: true,
+                processing: true,
+                ajax: '/getBorrows',
+                columns: [
+                    { data: "id", name: "id", visible: false },
+                    { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                    { data: 'name', name: 'name' },
+                    { 
+                        data: null,
+                        name: 'book',
+                        render: function (data, type, row) {
+                            return data.book.code + ' - ' + data.book.title;
+                        },
+                    },
+                    { data: 'genre', name: 'genre' },
+                    { data: 'contact', name: 'contact' },
+                    { data: 'borrowed_date', name: 'borrowed_date' },
+                    { data: 'return_date', name: 'return_date' },
+                    { data: "actions", name: "actions", orderable: false, searchable: false },
+                ],
+                order: [[0, 'desc']],
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 25, 100, 'ALL'],
+                ],
+            } );
+        })
+    </script>
 </div>
 @endsection
