@@ -13,6 +13,7 @@ use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BorrowController extends Controller
 {
@@ -97,6 +98,7 @@ class BorrowController extends Controller
         }
         $borrow->save();
 
+        Alert::success('Added Sucessfully', 'Borrow Data Added Successfully');
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
