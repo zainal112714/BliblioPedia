@@ -11,6 +11,7 @@ use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class BookController extends Controller
@@ -84,6 +85,7 @@ class BookController extends Controller
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
+        Alert::success('Added Sucessfully', 'Book Data Added Successfully');
         return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
@@ -140,7 +142,7 @@ class BookController extends Controller
 
 
     // datatable
-    public function getData(Request $request) 
+    public function getData(Request $request)
     {
         $books = Book::with('borrows');
         if ($request->ajax()) {
