@@ -20,12 +20,19 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <div id="app">
         @include('layouts.nav')
         @yield('content')
         @vite('resources/js/app.js')
         @stack('scripts')
     </div>
+=======
+    @include('layouts.nav')
+    @vite('resources/js/app.js')
+    @include('sweetalert::alert')
+    @stack('script')
+>>>>>>> 7e1247fc9cf208270c94f1e8a59755a0217d163f
 </body>
 
 </html>

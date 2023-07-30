@@ -15,6 +15,13 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.10.5",
+<<<<<<< HEAD
         "owl.carousel": "^2.3.4"
+=======
+        "datatables.net-bs5": "^1.13.5",
+        "datatables.net-buttons-bs5": "^2.4.1",
+        "datatables.net-dt": "^1.13.5",
+        "jquery": "^3.7.0"
+>>>>>>> 7e1247fc9cf208270c94f1e8a59755a0217d163f
     }
 }
