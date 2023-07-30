@@ -140,7 +140,10 @@ class BorrowController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // ELOQUENT
+        $borrow = Borrow::find($id);
+        $borrow->delete();
+        return redirect()->route('borrows.index');
     }
 
     public function exportExcels()
