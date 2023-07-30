@@ -12,11 +12,11 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="nama" class="form-label">Nama Peminjam</label>
-                        <h5>{{ $borrow->nama }}</h5>
+                        <h5>{{ $borrow->name }}</h5>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="title" class="form-label">Judul Buku</label>
-                        <h5>{{ $borrow->title }}</h5>
+                        <h5>{{ $borrow->book->title }}</h5>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="contact" class="form-label">Contact Number</label>
