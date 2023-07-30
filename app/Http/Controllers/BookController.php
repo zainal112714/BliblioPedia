@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Borrow;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -107,16 +108,78 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        {
+            $pageTitle = 'Edit Book';
+
+            // ELOQUENT
+            $borrows = Borrow::all();
+            $book = Book::find($id);
+
+            return view('book.edit', compact('pageTitle', 'book', 'borrows'));
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+/**
+* Update the specified resource in storage.
+*/
     public function update(Request $request, string $id)
     {
-        //
+        {
+            $messages = [
+                'required' => ':Attribute harus diisi.',
+                'code' => 'Isi :attribute dengan angka'
+
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'code' => 'numeric',
+                'title' => 'required',
+                'gendre' => 'required',
+                'author' => 'required',
+                'publisher' => 'required',
+                'synopsis' => 'required'
+            ], $messages);
+
+            if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $file = $request->file('file');
+
+            // GET FILE
+            if ($file != null) {
+                $originalFilename = $file->getClientOriginalName();
+                $encryptedFilename = $file->hashName();
+
+            // STORE FILE
+                $file->store('public/files');
+
+            $employee = Book::find($id);
+                if ($book->encrypted_filename) {
+                Storage::delete('public/files/' . $book->encrypted_filename);
+            }
+         }
+
+            // ELOQUENT
+            $book = book::find($id);
+            $book->name = $request->name;
+            $book->contact = $request->contact;
+            $book->book_id = $request->book_id;
+            $book->booked_date = $request->booked_date;
+            $book->return_date = $request->return_date;
+
+            if ($file != null){
+            $book->original_filename = $originalFilename;
+            $book->encrypted_filename = $encryptedFilename;
+        }
+
+            $borrow->save();
+
+            return redirect()->route('books.index');
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.
