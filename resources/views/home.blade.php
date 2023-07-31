@@ -11,19 +11,19 @@
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
                 aria-label="Slide 3"></button>
         </div>
-        <div class="carousel-inner">git 
+        <div class="carousel-inner">git
             <div class="carousel-item active">
                 <img src="{{ asset('images/cin.jpeg') }}" class="d-block w-100" alt="cin">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Rayakan Hari Istimewa!</h5>
-                    <p>Tidak usah bingung bagaimana caranya merayakan ulang tahun!</p>
+                    <h5>BlilioPedia</h5>
+                    <p>Perpustakaan  Pintar</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('images/nov.jpeg') }}" class="d-block w-100" alt="nov">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Give The Best Gift!</h5>
-                    <p>Berikan Kejutan untuk Orang Tersayang!</p>
+                    <h5>BliblioPedia</h5>
+                    <p>Jangan pernah membaca karena ingin dianggap pintar. Bacalah karena kamu mau membaca dan dengan sendirinya kamu akan jadi pintar</p>
                 </div>
             </div>
             <div class="carousel-item">
