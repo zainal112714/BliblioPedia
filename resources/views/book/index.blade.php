@@ -81,3 +81,77 @@
         @vite('resources/sass/app.scss')
     </div>
 @endsection
+            <div class="col-lg-6 col-xl-12">
+                <ul class="list-inline mb-0 float-end">
+                    <li class="list-inline-item">
+                        <a href="{{ route('books.exportExcel') }}" class="btn btn-outline-success">
+                            <i class="bi bi-download me-1"></i> to Excel
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('books.exportPdf') }}" class="btn btn-outline-danger">
+                            <i class="bi bi-download me-1"></i>to PDF
+                        </a>
+                    </li>
+                    <li class="list-inline-item">|</li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('books.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Make Loan
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive border p-3 rounded-3">
+            <table class="table table-bordered table-hover table-striped mb-0 bg-white" id="bookTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>No.</th>
+                        <th>Kode Buku</th>
+                        <th>Judul</th>
+                        <th>Genre</th>
+                        <th>Penulis</th>
+                        <th>Penerbit</th>
+                        <th>Sinopsis</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    @vite('resources/sass/app.scss')
+    @vite('resources/js/app.js')
+    {{-- @stack('scripts') --}}
+<script type="module">
+    $(document).ready( function () {
+        $('#bookTable').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: "/getBooks",
+            columns: [
+                { data: "id", name: "id", visible: false },
+                { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                { data: 'code', name: 'code' },
+                { data: 'title', name: 'title' },
+                { data: 'genre', name: 'genre' },
+                { data: 'author', name: 'author' },
+                { data: 'publisher', name: 'publisher' },
+                { data: 'synopsis', name: 'synopsis' },
+                { data: "actions", name: "actions", orderable: false, searchable: false },
+            ],
+            order: [[0, 'desc']],
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 25, 100, 'ALL'],
+            ],
+        });
+    } );
+</script>
+</div>
+
+@endsection
+
+
+

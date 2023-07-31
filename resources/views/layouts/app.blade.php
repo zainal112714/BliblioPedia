@@ -26,6 +26,7 @@
         @vite('resources/js/app.js')
         @stack('scripts')
     </div>
+
 </body>
 
 </html>

@@ -13,6 +13,7 @@ use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BorrowController extends Controller
 {
@@ -25,11 +26,12 @@ class BorrowController extends Controller
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
-        $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
-        return view('borrow.index', [
-            'pageTitle' => $pageTitle,
-            'borrows' => $borrows
-        ]);
+        // $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
+        // return view('borrow.index', [
+        //     'pageTitle' => $pageTitle,
+        //     'borrows' => $borrows
+        // ]);
+        return view('borrow.index', compact('pageTitle'));
     }
 
     /**
@@ -97,6 +99,7 @@ class BorrowController extends Controller
         }
         $borrow->save();
 
+        Alert::success('Added Sucessfully', 'Borrow Data Added Successfully');
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
@@ -118,21 +121,72 @@ class BorrowController extends Controller
      */
     public function edit(string $id)
     {
-        $pageTitle= 'Create Loan';
-        // $borrows = DB::table('borrows')->get();
-        $books = Book::all();
-        return view('borrow.edit', [
-            'pageTitle' => $pageTitle,
-            'books' => $books
-        ]);
-    }
+        $pageTitle = 'Edit Load';
 
+        // ELOQUENT
+        $books = Book::all();
+        $borrow = Borrow::find($id);
+
+        return view('borrow.edit', compact('pageTitle', 'borrow', 'books'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        {
+            $messages = [
+                'required' => ':Attribute harus diisi.',
+                'contact' => 'Isi :attribute dengan angka'
+
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'contact' => 'numeric',
+                'title' => 'required',
+                'borrowed_date' => 'required',
+                'return_date' => 'required'
+            ], $messages);
+
+            if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $file = $request->file('file');
+
+            // GET FILE
+            if ($file != null) {
+                $originalFilename = $file->getClientOriginalName();
+                $encryptedFilename = $file->hashName();
+
+            // STORE FILE
+                $file->store('public/files');
+
+            $employee = Borrow::find($id);
+                if ($borrow->encrypted_filename) {
+                Storage::delete('public/files/' . $borrow->encrypted_filename);
+            }
+         }
+
+            // ELOQUENT
+            $borrow = borrow::find($id);
+            $borrow->name = $request->name;
+            $borrow->contact = $request->contact;
+            $borrow->book_id = $request->book_id;
+            $borrow->borrowed_date = $request->borrowed_date;
+            $borrow->return_date = $request->return_date;
+
+            if ($file != null){
+            $borrow->original_filename = $originalFilename;
+            $borrow->encrypted_filename = $encryptedFilename;
+        }
+
+            $borrow->save();
+
+            return redirect()->route('borrows.index');
+            }
+
     }
 
     /**
@@ -159,4 +213,25 @@ class BorrowController extends Controller
 
         return $pdf->download('borrows.pdf');
     }
+
+    // datatable
+    public function getData(Request $request)
+    {
+        $borrows = Borrow::with('book');
+        if ($request->ajax()) {
+            return datatables()->of($borrows )
+                ->addIndexColumn()
+                ->addColumn('actions', function ($borrow) {
+                    return view('borrow.actions', compact('borrow'));
+                })
+                ->addColumn('genre', function ($borrow) {
+                    return $borrow->book->genre; // <-- Perbaiki di sini
+                })
+                ->addColumn('return_date', function ($borrow) {
+                    return $borrow->return_date; // <-- Perbaiki di sini
+                })
+                ->toJson();
+        }
+    }
 }
+
