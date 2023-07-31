@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BorrowsExport;
+use PDF;
 use Illuminate\Http\Request;
 // validator
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BorrowController extends Controller
 {
@@ -22,11 +26,14 @@ class BorrowController extends Controller
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
-        $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
-        return view('borrow.index', [
-            'pageTitle' => $pageTitle,
-            'borrows' => $borrows
-        ]);
+        // $borrows = Borrow::all(); // Mengambil semua data peminjam dari database menggunakan model Borrow
+        // return view('borrow.index', [
+        //     'pageTitle' => $pageTitle,
+        //     'borrows' => $borrows
+        // ]);
+        confirmDelete();
+
+        return view('borrow.index', compact('pageTitle'));
     }
 
     /**
@@ -49,7 +56,7 @@ class BorrowController extends Controller
     public function store(Request $request)
     {
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
-         $messages = [
+        $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.'
         ];
@@ -57,8 +64,9 @@ class BorrowController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'contact' => 'required|numeric',
-            'title' => 'required',
-            'genre' => 'required',
+            'book_id' => 'required', //validasi untuk book_id yang akan terhubung dengan tabel books
+            // 'title' => 'required',
+            // 'genre' => 'required',
             'borrowed_date' => 'required',
             'return_date' => 'required',
         ], $messages);
@@ -67,16 +75,33 @@ class BorrowController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Simpan data buku ke database
-        $book = new Book();
-        $book->name = $request->input('name');
-        $book->contact = $request->input('contact');
-        $book->title = $request->input('title');
-        $book->genre = $request->input('genre');
-        $book->borrowed_date = $request->input('borrowed_date');
-        $book->return_date = $request->input('return_date');
-        $book->save();
+        // Simpan file yang diunggah (jika ada)
+        $file = $request->file('file');
+        if ($file != null) {
+            $originalfile = $file->getClientOriginalName();
+            $encryptedfile = $file->hashName();
 
+            // penyimpanan file
+            $file->store('public/files');
+        }
+
+        // Simpan data buku ke database
+        $borrow = new Borrow();
+        $borrow->name = $request->input('name');
+        $borrow->contact = $request->input('contact');
+        $borrow->book_id = $request->input('book_id');
+        // $borrow->title = $request->input('title');
+        // $borrow->genre = $request->input('genre');
+        $borrow->borrowed_date = $request->input('borrowed_date');
+        $borrow->return_date = $request->input('return_date');
+
+        if ($file != null) {
+            $borrow->original_file = $originalfile;
+            $borrow->encrypted_file = $encryptedfile;
+        }
+        $borrow->save();
+
+        Alert::success('Added Sucessfully', 'Borrow Data Added Successfully');
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
@@ -85,7 +110,12 @@ class BorrowController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pageTitle = 'Detail Peminjaman';
+
+        // ELOQUENT
+        $borrow = Borrow::find($id);
+
+        return view('borrow.show', compact('pageTitle', 'borrow'));
     }
 
     /**
@@ -93,15 +123,72 @@ class BorrowController extends Controller
      */
     public function edit(string $id)
     {
-        //
-    }
+        $pageTitle = 'Edit Load';
 
+        // ELOQUENT
+        $books = Book::all();
+        $borrow = Borrow::find($id);
+
+        return view('borrow.edit', compact('pageTitle', 'borrow', 'books'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        {
+            $messages = [
+                'required' => ':Attribute harus diisi.',
+                'contact' => 'Isi :attribute dengan angka'
+
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'contact' => 'numeric',
+                'title' => 'required',
+                'borrowed_date' => 'required',
+                'return_date' => 'required'
+            ], $messages);
+
+            if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $file = $request->file('file');
+
+            // GET FILE
+            if ($file != null) {
+                $originalFilename = $file->getClientOriginalName();
+                $encryptedFilename = $file->hashName();
+
+            // STORE FILE
+                $file->store('public/files');
+
+            $employee = Borrow::find($id);
+                if ($borrow->encrypted_filename) {
+                Storage::delete('public/files/' . $borrow->encrypted_filename);
+            }
+        }
+
+            // ELOQUENT
+            $borrow = borrow::find($id);
+            $borrow->name = $request->name;
+            $borrow->contact = $request->contact;
+            $borrow->book->title = $request->book_id;
+            $borrow->borrowed_date = $request->borrowed_date;
+            $borrow->return_date = $request->return_date;
+
+            if ($file != null){
+            $borrow->original_filename = $originalFilename;
+            $borrow->encrypted_filename = $encryptedFilename;
+        }
+
+            $borrow->save();
+
+            return redirect()->route('borrows.index');
+            }
+
     }
 
     /**
@@ -109,6 +196,44 @@ class BorrowController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // ELOQUENT
+        $borrow = Borrow::find($id);
+        $borrow->delete();
+        Alert::success('Deleted Successfully', 'Borrow Data Deleted Successfully.');
+        return redirect()->route('borrows.index');
+    }
+
+    public function exportExcels()
+    {
+        return Excel::download(new BorrowsExport, 'borrows.xlsx');
+    }
+
+    public function exportPdfs()
+    {
+        $borrows = Borrow::all();
+
+        $pdf = PDF::loadView('borrow.export_pdf', compact('borrows'));
+
+        return $pdf->download('borrows.pdf');
+    }
+
+    // datatable
+    public function getData(Request $request)
+    {
+        $borrows = Borrow::with('book');
+        if ($request->ajax()) {
+            return datatables()->of($borrows )
+                ->addIndexColumn()
+                ->addColumn('actions', function ($borrow) {
+                    return view('borrow.actions', compact('borrow'));
+                })
+                ->addColumn('genre', function ($borrow) {
+                    return $borrow->book->genre; // <-- Perbaiki di sini
+                })
+                ->addColumn('return_date', function ($borrow) {
+                    return $borrow->return_date; // <-- Perbaiki di sini
+                })
+                ->toJson();
+        }
     }
 }

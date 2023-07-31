@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // isis tabel books
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->string('code',3)->unique();
             $table->string('title');
             $table->string('genre');
             $table->string('author');
             $table->string('publisher');
-            $table->text('synopsis');
+            $table->text('synopsis')->nullable();
             $table->timestamps();
         });
     }

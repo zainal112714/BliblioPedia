@@ -32,3 +32,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('borrows', BorrowController::class);
 });
 
+Route::get('exportExcel', [BookController::class, 'exportExcel'])->name('books.exportExcel');
+
+Route::get('exportExcels', [BorrowController::class, 'exportExcels'])->name('borrows.exportExcels');
+
+Route::get('exportPdf', [BookController::class, 'exportPdf'])->name('books.exportPdf');
+
+Route::get('exportPdfs', [BorrowController::class, 'exportPdfs'])->name('borrows.exportPdfs');
+
+// Server-side Processing DataTable Buku
+Route::get('getBooks', [BookController::class, 'getData'])->name('books.getData');
+// Server-side Processing DataTable Buku
+Route::get('getBorrows', [BorrowController::class, 'getData'])->name('borrows.getData');

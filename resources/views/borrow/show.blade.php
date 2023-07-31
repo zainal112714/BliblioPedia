@@ -5,30 +5,30 @@
         <div class="row justify-content-center">
             <div class="p-5 bg-light rounded-3 col-xl-4 border">
                 <div class="mb-3 text-center">
-                    <i class="bi-book fs-1"></i>
-                    <h4>Detail Book</h4>
+                    <i class="bi-person-circle fs-1"></i>
+                    <h4>Detail Peminjaman</h4>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <h5>{{ $book->title }}</h5>
+                        <label for="nama" class="form-label">Nama Peminjam</label>
+                        <h5>{{ $borrow->name }}</h5>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="genre" class="form-label">Gendre</label>
-                        <h5>{{ $book->genre }}</h5>
+                        <label for="title" class="form-label">Judul Buku</label>
+                        <h5>{{ $borrow->book->title }}</h5>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="author" class="form-label">Author</label>
-                        <h5>{{ $book->author }}</h5>
+                        <label for="contact" class="form-label">Contact Number</label>
+                        <h5>{{ $borrow->contact }}</h5>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="publisher" class="form-label">Publisher</label>
-                        <h5>{{ $book->publisher }}</h5>
+                        <label for="borrowed_date" class="form-label">Borrowed Date</label>
+                        <h5>{{ $borrow->borrowed_date }}</h5>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="synopsis" class="form-label">Synopsis</label>
-                        <h5>{{ $book->synopsis }}</h5>
+                        <label for="return_date" class="form-label">Return Date</label>
+                        <h5>{{ $borrow->return_date }}</h5>
                     </div>
                 </div>
                 <hr>

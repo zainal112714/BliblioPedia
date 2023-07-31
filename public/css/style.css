@@ -1,0 +1,41 @@
+.navbar-logo {
+    width: 125px;
+    /* Atur lebar logo */
+    height: auto;
+    /* Atur tinggi logo agar tetap proporsional */
+}
+
+.navbar {
+    background-color: #293F59;
+
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    /* Warna teks (font) pada navbar */
+    border-radius: 5px;
+    /* Membuat sudut (round) pada link navigasi */
+    padding: 10px 15px;
+    /* Atur padding agar link navigasi lebih lebar */
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: white;
+    /* Warna latar belakang ketika hover */
+    color: #293F59;
+    /* Warna teks ketika hover */
+}
+
+.btn {
+    background-color: #293F59;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #E1CA9C;
+    color: #293F59;
+}
