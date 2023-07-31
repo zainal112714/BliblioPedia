@@ -173,7 +173,7 @@ class BookController extends Controller
             $book->encrypted_filename = $encryptedFilename;
         }
 
-            $borrow->save();
+            $book->save();
 
             return redirect()->route('books.index');
         }
