@@ -173,7 +173,7 @@ class BorrowController extends Controller
             $borrow = borrow::find($id);
             $borrow->name = $request->name;
             $borrow->contact = $request->contact;
-            $borrow->book_id = $request->book_id;
+            $borrow->book->title = $request->book_id;
             $borrow->borrowed_date = $request->borrowed_date;
             $borrow->return_date = $request->return_date;
 
