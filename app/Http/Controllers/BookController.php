@@ -30,6 +30,8 @@ class BookController extends Controller
         //     'pageTitle' => $pageTitle,
         //     'books' => $books
         // ]);
+        confirmDelete();
+
         return view('book.index', compact('pageTitle'));
     }
 
@@ -158,7 +160,7 @@ class BookController extends Controller
                 if ($book->encrypted_filename) {
                 Storage::delete('public/files/' . $book->encrypted_filename);
             }
-         }
+        }
 
             // ELOQUENT
             $book = book::find($id);
@@ -189,6 +191,7 @@ class BookController extends Controller
         // ELOQUENT
         $book = Book::find($id);
         $book->delete();
+        Alert::success('Deleted Successfully', 'Book Inventory Data Deleted Successfully.');
         return redirect()->route('books.index');
     }
 
