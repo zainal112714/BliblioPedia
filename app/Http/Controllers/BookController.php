@@ -186,7 +186,10 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // ELOQUENT
+        $book = Book::find($id);
+        $book->delete();
+        return redirect()->route('books.index');
     }
 
     public function exportExcel() //exportExcel iki di panggil nang ndi engkok
