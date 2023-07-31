@@ -33,8 +33,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="genre" class="form-label">Genre</label>
-                                    <select class="form-select @error('genre') is-invalid @enderror" name="genre" id="genre" value="{{ $errors->any() ? old('genre') : $book->genre }}">
-                                        <option value="{{$book->genre}}">{{ $errors->any() ? old('genre') : $book->genre }}</option>
+                                    <select class="form-select @error('genre') is-invalid @enderror" name="genre" id="genre">
+                                        <option value="{{$book->genre}}">{{$book->genre }}</option>
                                         <option value="Novel">Novel</option>
                                         <option value="Fiksi Ilmiah">Fiksi Ilmiah</option>
                                         <option value="Fantasi">Fantasi</option>
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="synopsis" class="form-label">Synopsis</label>
-                                    <textarea name="synopsis" id="synopsis" cols="52" rows="10" value="{{ $errors->any() ? old('synopsis') : $book->synopsis }}">{{ $errors->any() ? old('synopsis') : $book->synopsis }}</textarea>
+                                    <textarea name="synopsis" id="synopsis" cols="52" rows="10">{{ $errors->any() ? old('synopsis') : $book->synopsis }}</textarea>
                                     {{-- <input class="form-control @error('synopsis') is-invalid @enderror" type="text" name="synopsis" id="synopsis" value="{{ $errors->any() ? old('synopsis') : $book->synopsis }}" placeholder="Enter Synopsis"> --}}
                                     @error('synopsis')
                                         <div class="text-danger"><small>{{ $message }}</small></div>

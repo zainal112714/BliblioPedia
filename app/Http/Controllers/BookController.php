@@ -134,7 +134,7 @@ class BookController extends Controller
             $validator = Validator::make($request->all(), [
                 'code' => 'numeric',
                 'title' => 'required',
-                'gendre' => 'required',
+                'genre' => 'required',
                 'author' => 'required',
                 'publisher' => 'required',
                 'synopsis' => 'required'
@@ -154,7 +154,7 @@ class BookController extends Controller
             // STORE FILE
                 $file->store('public/files');
 
-            $employee = Book::find($id);
+            $book = Book::find($id);
                 if ($book->encrypted_filename) {
                 Storage::delete('public/files/' . $book->encrypted_filename);
             }
@@ -162,18 +162,20 @@ class BookController extends Controller
 
             // ELOQUENT
             $book = book::find($id);
-            $book->name = $request->name;
-            $book->contact = $request->contact;
-            $book->book_id = $request->book_id;
-            $book->booked_date = $request->booked_date;
-            $book->return_date = $request->return_date;
+            $book->code = $request->code;
+            $book->title = $request->title;
+            $book->genre = $request->genre;
+            $book->author = $request->author;
+            $book->publisher = $request->publisher;
+            $book->synopsis = $request->synopsis;
+
 
             if ($file != null){
             $book->original_filename = $originalFilename;
             $book->encrypted_filename = $encryptedFilename;
         }
 
-            $borrow->save();
+            $book->save();
 
             return redirect()->route('books.index');
         }
