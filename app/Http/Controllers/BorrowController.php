@@ -31,6 +31,8 @@ class BorrowController extends Controller
         //     'pageTitle' => $pageTitle,
         //     'borrows' => $borrows
         // ]);
+        confirmDelete();
+
         return view('borrow.index', compact('pageTitle'));
     }
 
@@ -54,7 +56,7 @@ class BorrowController extends Controller
     public function store(Request $request)
     {
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
-         $messages = [
+        $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.'
         ];
@@ -167,7 +169,7 @@ class BorrowController extends Controller
                 if ($borrow->encrypted_filename) {
                 Storage::delete('public/files/' . $borrow->encrypted_filename);
             }
-         }
+        }
 
             // ELOQUENT
             $borrow = borrow::find($id);
@@ -197,6 +199,7 @@ class BorrowController extends Controller
         // ELOQUENT
         $borrow = Borrow::find($id);
         $borrow->delete();
+        Alert::success('Deleted Successfully', 'Borrow Data Deleted Successfully.');
         return redirect()->route('borrows.index');
     }
 
