@@ -1,6 +1,3 @@
-@php
-    $currentRouteName = Route::currentRouteName();
-@endphp
 <nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand">
