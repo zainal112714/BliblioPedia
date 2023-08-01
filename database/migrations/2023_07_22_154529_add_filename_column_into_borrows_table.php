@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('borrows', function (Blueprint $table) {
-            $table->dropColumn('original_file');
             $table->dropColumn('encrypted_file');
+            $table->dropColumn('original_file');
         });
     }
 };
