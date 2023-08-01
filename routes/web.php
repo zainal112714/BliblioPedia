@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     // route ke halaman list peminjam
     Route::resource('borrows', BorrowController::class);
 });
+Route::get('download-file/{borrowId}', [BorrowController::class, 'downloadFile'])->name('borrows.downloadFile');
 
 Route::get('exportExcel', [BookController::class, 'exportExcel'])->name('books.exportExcel');
 
