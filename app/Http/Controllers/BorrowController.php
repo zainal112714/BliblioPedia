@@ -230,10 +230,10 @@ class BorrowController extends Controller
                     return view('borrow.actions', compact('borrow'));
                 })
                 ->addColumn('genre', function ($borrow) {
-                    return $borrow->book->genre; // <-- Perbaiki di sini
+                    return $borrow->book->genre;
                 })
                 ->addColumn('return_date', function ($borrow) {
-                    return $borrow->return_date; // <-- Perbaiki di sini
+                    return $borrow->return_date; 
                 })
                 ->toJson();
         }
