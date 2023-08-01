@@ -157,7 +157,6 @@ class BookController extends Controller
             Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
 
             return redirect()->route('books.index');
-        }
     }
     /**
      * Remove the specified resource from storage.
