@@ -30,11 +30,22 @@
                         <label for="return_date" class="form-label">Return Date</label>
                         <h5>{{ $borrow->return_date }}</h5>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="age" class="form-label">Kartu Identitas</label>
+                        @if ($borrow->original_file)
+                            <h5>{{ $borrow->original_file }}</h5>
+                            <a href="{{ route('borrows.downloadFile', ['borrowId' => $borrow->id]) }}" class="btn btn-primary btn-sm mt-2">
+                                <i class="bi bi-download me-1"></i> Download Identitaas
+                            </a>
+                        @else
+                            <h5>Tidak ada</h5>
+                        @endif
+                    </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-md-12 d-grid">
-                        <a href="{{ route('books.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Back</a>
+                        <a href="{{ route('borrows.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Back</a>
                     </div>
                 </div>
             </div>

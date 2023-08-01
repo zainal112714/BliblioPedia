@@ -48,65 +48,35 @@
             </div>
         </div>
 
-        @vite('resources/sass/app.scss')
-
-        <script type="module">
-            $(document).ready(function() {
-                $('#borrowTable').DataTable({
-                    serverSide: true,
-                    processing: true,
-                    ajax: '/getBorrows',
-                    columns: [{
-                            data: "id",
-                            name: "id",
-                            visible: false
+@vite('resources/sass/app.scss')
+    @vite('resources/js/app.js')
+    <script type="module">
+        $(document).ready ( function () {
+            $('#borrowTable').DataTable( {
+                serverSide: true,
+                processing: true,
+                ajax: '/getBorrows',
+                columns: [
+                    { data: "id", name: "id", visible: false },
+                    { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                    { data: 'name', name: 'name' },
+                    {
+                        data: null,
+                        name: 'book_id',
+                        render: function (data, type, row) {
+                            return data.book.code + ' - ' + data.book.title;
                         },
-                        {
-                            data: "DT_RowIndex",
-                            name: "DT_RowIndex",
-                            orderable: false,
-                            searchable: false
-                        },
-                        {
-                            data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: null,
-                            name: 'book',
-                            render: function(data, type, row) {
-                                return data.book.code + ' - ' + data.book.title;
-                            },
-                        },
-                        {
-                            data: 'genre',
-                            name: 'genre'
-                        },
-                        {
-                            data: 'contact',
-                            name: 'contact'
-                        },
-                        {
-                            data: 'borrowed_date',
-                            name: 'borrowed_date'
-                        },
-                        {
-                            data: 'return_date',
-                            name: 'return_date'
-                        },
-                        {
-                            data: "actions",
-                            name: "actions",
-                            orderable: false,
-                            searchable: false
-                        },
-                    ],
-                    order: [
-                        [0, 'desc']
-                    ],
-                    lengthMenu: [
-                        [10, 25, 50, 100, -1],
-                        [10, 25, 25, 100, 'ALL'],
+                    },
+                    { data: 'genre', name: 'genre' },
+                    { data: 'contact', name: 'contact' },
+                    { data: 'borrowed_date', name: 'borrowed_date' },
+                    { data: 'return_date', name: 'return_date' },
+                    { data: "actions", name: "actions", orderable: false, searchable: false },
+                ],
+                order: [[0, 'desc']],
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 25, 100, 'ALL'],
                     ],
                 });
                 $(".datatable").on("click", ".btn-delete", function(e) {
