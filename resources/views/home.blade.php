@@ -1,8 +1,186 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BliblioPedia</title>
 
-@section('content')
-    <!-- Carousel -->
-    <div id="carouselExampleCaptions" class="carousel slide">
+	<!-- Bootstrap CSS v5.2.1 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"/>
+	<style>
+			.container {
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            @media (min-width: 768px) {
+                .container {
+                    width: 750px;
+                }
+            }
+            @media (min-width: 992px) {
+                .container {
+                    width: 970px;
+                }
+			}
+			@media (min-width: 1200px) {
+                .container {
+                    width: 1170px;
+                }
+            }
+
+
+
+		@media (max-width: 767px) {
+			#featureContainer .carousel-inner .carousel-item > div {
+				display: none;
+			}
+			#featureContainer .carousel-inner .carousel-item > div:first-child {
+				display: block;
+			}
+		}
+
+		#featureContainer .carousel-inner .carousel-item.active,
+		#featureContainer .carousel-inner .carousel-item-next,
+		#featureContainer .carousel-inner .carousel-item-prev {
+			display: flex;
+		}
+
+		/* medium and up screens */
+		@media (min-width: 768px) {
+
+			#featureContainer .carousel-inner .carousel-item-end.active,
+			#featureContainer .carousel-inner .carousel-item-next {
+				transform: translateX(25%);
+			}
+
+			#featureContainer .carousel-inner .carousel-item-start.active,
+			#featureContainer .carousel-inner .carousel-item-prev {
+				transform: translateX(-25%);
+			}
+			#featureContainer .card img{
+				width: 90%;
+				height: 40vh;
+			}
+			#featureContainer .carousel-item{
+				justify-content: space-between;
+			}
+		}
+		@media (max-width: 767px) {
+			#featureContainer .card img{
+				width: 100%;
+				height: 75vh;
+			}
+		}
+		#featureContainer .carousel-inner .carousel-item-end,
+		#featureContainer .carousel-inner .carousel-item-start {
+		transform: translateX(0);
+		}
+		#featureContainer .card{
+			border: 0;
+		}
+		#featureContainer .card{
+			position: relative;
+		}
+		#featureContainer .card .card-img-overlays{
+			position: absolute;
+			bottom: 15%;
+			left: 10%;
+		}
+		#featureContainer a{
+			text-decoration: none;
+		}
+		#featureContainer .indicator{
+			border: 1px solid rgb(202, 202, 202);
+			padding: 3px 6px 3px 6px;
+		}
+		#featureContainer .indicator:hover{
+			background-color: blue;
+			border: 1px solid blue;
+			transition: 200ms;
+		}
+		#featureContainer .indicator:hover{
+			color: white;
+			transition: 200ms;
+		}
+		#featureContainer .indicator {
+			color: lightgray;
+		}
+		#featureContainer .float-end{
+			padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand">
+            <img src="{{ asset('images/logo2.jpg') }}" alt="Logo" class="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('books.index') }}">{{ __('Books List') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('borrows.index') }}">{{ __('Borrow List') }}</a>
+                </li>
+            </ul>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ms-auto">
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
+            </ul>
+        </div>
+    </div>
+</nav>
+ <!-- Carousel -->
+ <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                 aria-current="true" aria-label="Slide 1"></button>
@@ -15,22 +193,20 @@
             <div class="carousel-item active">
                 <img src="{{ asset('images/cin.jpeg') }}" class="d-block w-100" alt="cin">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>BlilioPedia</h5>
-                    <p>Perpustakaan  Pintar</p>
+                    <h5>Buku adalah cermin jiwa.</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('images/nov.jpeg') }}" class="d-block w-100" alt="nov">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>BliblioPedia</h5>
-                    <p>Jangan pernah membaca karena ingin dianggap pintar. Bacalah karena kamu mau membaca dan dengan sendirinya kamu akan jadi pintar</p>
+                    <h5>Jika Anda tidak suka membaca, Anda belum menemukan buku yang tepat.</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('images/zen.jpeg') }}" class="d-block w-100" alt="zen">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Chat and Order to Us!</h5>
-                    <p>Tunggu apalagi? Pesan Sekarang!</p>
+                    <h5>Ada lebih banyak harta karun di dalam buku daripada di semua jarahan bajak laut di Pulau Harta
+                        Karun.</h5>
                 </div>
             </div>
         </div>
@@ -51,75 +227,142 @@
                     <img class="img-fluid" src="{{ asset('images/mainlogo.png') }}" alt="main logo">
                 </div>
                 <div class="col-md-7 order-md-1">
-                    <h1 class="mt-4 display-3">Rayakan Hari Istimewa Anda!</h1>
-                    <p class="fs-5 mt-3">Melayani kebutuhan hari perayaan seperti dekorasi, party suply, event organizer dan
-                        special effect. Melayani customer lebih dari 10 tahun, "Baloon Bunga Bali" dipercaya membuat hari
-                        istimewa menjadi semakin istimewa. Tunggu apa lagi? Custom sekarang!</p>
+                    <h1 class="mt-4 display-3">BLIBLIOPEDIA</h1>
+                    <p class="fs-5 mt-3">Selamat datang Admin Blibliopedia!</p>
+                    <p class="fs-5 mt-3">Website ini dirancang khusus untuk admin agar dapat membantu pencatatan dalam
+                        peminjaman dan pengembalian buku di perpustakaan. Website blibliopedia memiliki tujuan utama yaitu
+                        untuk pengalaman yang lebih baik, efektif dan efisien bagi admin perpustakaan. Sehingga pustakawan
+                        atau admin tidak perlu melakukan administrasi buku perpustakaan secara manual.</p>
                 </div>
             </div>
         </div>
     </div>
-    <center>
-        <h1 class="mt-4">Koleksi Buku Terpopuler</h1>
-    </center><br><br>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <div class="card" style="width: 12rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+	<div class="container my-3 mt-5" id="featureContainer">
+		<div class="row mx-auto my-auto justify-content-center">
+			<div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
+				<h2 class="font-weight-light float-start mt-5">Feature Carousel</h2>
+				<div class="float-end pe-md-4">
+					<a class="indicator" href="#featureCarousel" role="button" data-bs-slide="prev">
+						<span class="fas fa-chevron-left" aria-hidden="true"></span>
+					</a> &nbsp;&nbsp;
+					<a class="w-aut indicator" href="#featureCarousel" role="button" data-bs-slide="next">
+						<span class="fas fa-chevron-right" aria-hidden="true"></span>
+					</a>
+				</div>
+				<div class="carousel-inner" role="listbox">
+					<div class="carousel-item active">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img1.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                             card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 12rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        <a href="#" class="btn btn-primary" style="width: 4en;">Detail</a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img2.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                             card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 12rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        <a href="#" class="btn btn-primary">Detail</a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img3.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                             card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 12rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        <a href="#" class="btn btn-primary">Detail</a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img4.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                             card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 12rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        <a href="#" class="btn btn-primary">Detail</a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img5.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                             card's content.</p>
-                        <a href="#" class="btn">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <link rel="stylesheet" href="style.css">
-@endsection
+                        <a href="#" class="btn btn-primary">Detail</a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<div class="col-md-3">
+							<div class="card">
+								<div class="card-img">
+									<img src="img6.jpg" class="img-fluid">
+								</div>
+								<h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                            card's content.</p>
+                        <a href="#" class="btn btn-primary">Detail</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+	<script>
+		let items2 = document.querySelectorAll('#featureContainer .carousel .carousel-item');
+
+		items2.forEach((el) => {
+			const minPerSlide = 4
+			let next = el.nextElementSibling
+			for (var i=1; i<minPerSlide; i++) {
+				if (!next) {
+					// wrap carousel by using first child
+					next = items2[0]
+				}
+				let cloneChild = next.cloneNode(true)
+				el.appendChild(cloneChild.children[0])
+				next = next.nextElementSibling
+			}
+		})
+		$(document).ready(function(){
+			$('#featureCarousel').carousel({interval: false});
+			$('#featureCarousel').carousel('pause');
+		});
+	</script>
+</body>
+</html>
