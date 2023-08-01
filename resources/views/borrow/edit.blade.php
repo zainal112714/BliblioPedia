@@ -53,24 +53,27 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-12 mb-3">
-                                    <label for="file" class="form-label">Upload File Identiti</label>
-                                    @if ($borrow->original_filename)
-                                        <h5>{{ $borrow->original_filename }}</h5>
-                                        <a href="{{ route('borrows.downloadFile', ['borrowId' => $borrow->id]) }}" class="btn btn-primary btn-sm mt-2">
-                                            <i class="bi bi-download me-1"></i> Download Identiti
-                                        </a>
-                                    @else
-                                        <h5>Tidak ada</h5>
-                                    @endif
-                                </div>
+                                <!-- Script to calculate and set the return_date -->
+                                <script>
+                                    document.getElementById("borrowed_date").addEventListener("change", function() {
+                                        const borrowedDate = new Date(this.value);
+                                        borrowedDate.setDate(borrowedDate.getDate() + 7);
+                                        document.getElementById("return_date").value = borrowedDate.toISOString().split("T")[0];
+                                    });
+                                </script>
+
 
                                 <div class="col-md-12 mb-3">
-                                    <input type="file" class="form-control" name="file" id="file">
-                                    @error('cv')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
-                                </div>
+                        <label for="age" class="form-label">Kartu Identitas</label>
+                        @if ($borrow->original_file)
+                            <h5>{{ $borrow->original_file }}</h5>
+                            <a href="{{ route('borrows.downloadFile', ['borrowId' => $borrow->id]) }}" class="btn btn-primary btn-sm mt-2">
+                                <i class="bi bi-download me-1"></i> Download Identitaas
+                            </a>
+                        @else
+                            <h5>Tidak ada</h5>
+                        @endif
+                    </div>
                             </div>
 
                             </div>

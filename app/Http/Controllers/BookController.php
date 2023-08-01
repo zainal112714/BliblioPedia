@@ -43,6 +43,8 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $messages = [
+         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create book
+         $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.',
             'digits' => ':Attribute harus berupa :digits digit.',

@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+
 
 class BorrowController extends Controller
 {
@@ -56,7 +59,7 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
+         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create borrow
         $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.'
@@ -239,4 +242,18 @@ class BorrowController extends Controller
                 ->toJson();
         }
     }
+
+    public function downloadFile($borrowId)
+{
+    $borrow = Borrow::find($borrowId);
+    $encryptedFile = 'public/files/'.$borrow->encrypted_file;
+    $downloadFile = \Illuminate\Support\Str::lower($borrow->name.'_'.$borrow->book->code.'_identitas.pdf');
+
+    if(Storage::exists($encryptedFile)) {
+        return Storage::download($encryptedFile, $downloadFile);
+    }
+}
+
+
+
 }
