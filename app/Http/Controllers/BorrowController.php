@@ -15,6 +15,7 @@ use App\Models\Book;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 
@@ -149,7 +150,7 @@ class BorrowController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'contact' => 'numeric',
-                'title' => 'required',
+                // 'title' => 'required',
                 'borrowed_date' => 'required',
                 'return_date' => 'required'
             ], $messages);
@@ -178,7 +179,8 @@ class BorrowController extends Controller
             $borrow = borrow::find($id);
             $borrow->name = $request->name;
             $borrow->contact = $request->contact;
-            $borrow->book->title = $request->book_id;
+            // $borrow->book->title = $request->book_id;
+            $borrow->book_id = $request->book_id;
             $borrow->borrowed_date = $request->borrowed_date;
             $borrow->return_date = $request->return_date;
 
@@ -224,6 +226,7 @@ class BorrowController extends Controller
     public function getData(Request $request)
     {
         $borrows = Borrow::with('book');
+
         if ($request->ajax()) {
             return datatables()->of($borrows )
                 ->addIndexColumn()
@@ -231,10 +234,10 @@ class BorrowController extends Controller
                     return view('borrow.actions', compact('borrow'));
                 })
                 ->addColumn('genre', function ($borrow) {
-                    return $borrow->book->genre; // <-- Perbaiki di sini
+                    return $borrow->book->genre;
                 })
                 ->addColumn('return_date', function ($borrow) {
-                    return $borrow->return_date; // <-- Perbaiki di sini
+                    return $borrow->return_date;
                 })
                 ->toJson();
         }

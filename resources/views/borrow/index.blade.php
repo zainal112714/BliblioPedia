@@ -49,7 +49,7 @@
     </div>
 
     @vite('resources/sass/app.scss')
-
+    @vite('resources/js/app.js')
     <script type="module">
         $(document).ready ( function () {
             $('#borrowTable').DataTable( {
@@ -62,7 +62,7 @@
                     { data: 'name', name: 'name' },
                     {
                         data: null,
-                        name: 'book',
+                        name: 'book_id',
                         render: function (data, type, row) {
                             return data.book.code + ' - ' + data.book.title;
                         },
