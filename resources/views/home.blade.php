@@ -238,11 +238,11 @@
         </div>
     </div>
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+<hr></hr>
 	<div class="container my-3 mt-5" id="featureContainer">
 		<div class="row mx-auto my-auto justify-content-center">
 			<div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
-				<h2 class="font-weight-light float-start mt-5">Feature Carousel</h2>
+				<h2 class="font-weight-light float-start mt-5">Koleksi Buku</h2>
 				<div class="float-end pe-md-4">
 					<a class="indicator" href="#featureCarousel" role="button" data-bs-slide="prev">
 						<span class="fas fa-chevron-left" aria-hidden="true"></span>
@@ -256,11 +256,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img1.jpg" class="img-fluid">
+									<img src="{{ asset('images/kata.jpeg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Kata</h5>
+                            <p class="card-text">Tokoh Binta diceritakan dalam novel sebagai seorang gadis yang cantik nan menggemaskan. Tetapi, ia hidup dalam ruang lingkup yang sangat rapuh</p>
                         <a href="#" class="btn btn-primary" style="width: 4en;">Detail</a>
 							</div>
 						</div>
@@ -269,11 +268,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img2.jpg" class="img-fluid">
+									<img src="{{ asset('images/hujan.jpg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Hujan</h5>
+                            <p class="card-text">Inilah yang menimbulkan konflik dalam cerita. Pertama-tama, diawali dengan kedatangan Lail yang akan memodifikasi ingatannya di pusat terapi saraf.</p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
@@ -282,11 +280,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img3.jpg" class="img-fluid">
+									<img src="{{ asset('images/horor.jpeg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Kisah nyata di 13 Kota</h5>
+                            <p class="card-text">Kumpulan Kisah Nyata Hantu di 13 Kota adalah buku yang ditulis oleh Argo Wikanjati. Buku ini berisi kumpulan kisah nyata tentang hantu di 13 kota di Indonesia. </p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
@@ -295,11 +292,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img4.jpg" class="img-fluid">
+									<img src="{{ asset('images/alam_semesta.jpg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Ensiklopedia Ruang Angkasa</h5>
+                            <p class="card-text">Di dunia ini, tidak hanya Bumi saja tempat di mana kita tinggal. Di atas Bumi juga tidak hanya langit saja, melainkan masih banyak benda dan hal-hal lain yang perlu kita tahu.</p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
@@ -308,11 +304,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img5.jpg" class="img-fluid">
+									<img src="{{ asset('images/bung_karno.jpeg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Bung Karno</h5>
+                            <p class="card-text">Memiliki nama asli Koesno Sosrodihardjo, Soekarno lahir di Jl. Pandean IV No 40, Kel. Paneleh, Kec. Genteng, Kota Surabaya pada 6 Juni 1901.</p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
@@ -321,11 +316,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="img6.jpg" class="img-fluid">
+									<img src="{{ asset('images/Tentang Kehidupan.jpeg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
+								<h5 class="card-title">Tentang Kehidupan</h5>
+                            <p class="card-text">Buku ini menceritakan kisah hidup seorang pengusaha sukses bernama Merry Riana, miliuner muda yang kini terkenal sebagai motivator dan penulis buku.</p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
