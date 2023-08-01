@@ -223,6 +223,7 @@ class BorrowController extends Controller
     public function getData(Request $request)
     {
         $borrows = Borrow::with('book');
+
         if ($request->ajax()) {
             return datatables()->of($borrows )
                 ->addIndexColumn()
@@ -233,7 +234,7 @@ class BorrowController extends Controller
                     return $borrow->book->genre;
                 })
                 ->addColumn('return_date', function ($borrow) {
-                    return $borrow->return_date; 
+                    return $borrow->return_date;
                 })
                 ->toJson();
         }
