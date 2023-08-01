@@ -165,7 +165,7 @@ class BorrowController extends Controller
             // STORE FILE
                 $file->store('public/files');
 
-            $employee = Borrow::find($id);
+            $borrow = Borrow::find($id);
                 if ($borrow->encrypted_filename) {
                 Storage::delete('public/files/' . $borrow->encrypted_filename);
             }

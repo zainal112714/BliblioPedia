@@ -15,7 +15,7 @@ class BookSeeder extends Seeder
     public function run(): void
     {
         // Panggil BookFactory dengan method create() untuk membuat 10 data fake.
-        Book::factory()->count(200)->create();
+        Book::factory()->count(5)->create();
 
 
         // DB::table('books')->insert([
