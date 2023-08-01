@@ -150,7 +150,7 @@ class BorrowController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'contact' => 'numeric',
-                // 'title' => 'required',
+                'title' => 'required',
                 'borrowed_date' => 'required',
                 'return_date' => 'required'
             ], $messages);
@@ -179,8 +179,7 @@ class BorrowController extends Controller
             $borrow = borrow::find($id);
             $borrow->name = $request->name;
             $borrow->contact = $request->contact;
-            // $borrow->book->title = $request->book_id;
-            $borrow->book_id = $request->book_id;
+            $borrow->book->title = $request->book_id;
             $borrow->borrowed_date = $request->borrowed_date;
             $borrow->return_date = $request->return_date;
 
@@ -193,6 +192,7 @@ class BorrowController extends Controller
 
             return redirect()->route('borrows.index');
             }
+
 
     }
 
