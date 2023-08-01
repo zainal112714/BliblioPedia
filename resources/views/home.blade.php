@@ -11,26 +11,24 @@
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
                 aria-label="Slide 3"></button>
         </div>
-        <div class="carousel-inner">git 
+        <div class="carousel-inner">git
             <div class="carousel-item active">
                 <img src="{{ asset('images/cin.jpeg') }}" class="d-block w-100" alt="cin">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Rayakan Hari Istimewa!</h5>
-                    <p>Tidak usah bingung bagaimana caranya merayakan ulang tahun!</p>
+                    <h5>Buku adalah cermin jiwa.</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('images/nov.jpeg') }}" class="d-block w-100" alt="nov">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Give The Best Gift!</h5>
-                    <p>Berikan Kejutan untuk Orang Tersayang!</p>
+                    <h5>Jika Anda tidak suka membaca, Anda belum menemukan buku yang tepat.</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('images/zen.jpeg') }}" class="d-block w-100" alt="zen">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Chat and Order to Us!</h5>
-                    <p>Tunggu apalagi? Pesan Sekarang!</p>
+                    <h5>Ada lebih banyak harta karun di dalam buku daripada di semua jarahan bajak laut di Pulau Harta
+                        Karun.</h5>
                 </div>
             </div>
         </div>
@@ -51,10 +49,12 @@
                     <img class="img-fluid" src="{{ asset('images/mainlogo.png') }}" alt="main logo">
                 </div>
                 <div class="col-md-7 order-md-1">
-                    <h1 class="mt-4 display-3">Rayakan Hari Istimewa Anda!</h1>
-                    <p class="fs-5 mt-3">Melayani kebutuhan hari perayaan seperti dekorasi, party suply, event organizer dan
-                        special effect. Melayani customer lebih dari 10 tahun, "Baloon Bunga Bali" dipercaya membuat hari
-                        istimewa menjadi semakin istimewa. Tunggu apa lagi? Custom sekarang!</p>
+                    <h1 class="mt-4 display-3">BLIBLIOPEDIA</h1>
+                    <p class="fs-5 mt-3">Selamat datang Admin Blibliopedia!</p>
+                    <p class="fs-5 mt-3">Website ini dirancang khusus untuk admin agar dapat membantu pencatatan dalam
+                        peminjaman dan pengembalian buku di perpustakaan. Website blibliopedia memiliki tujuan utama yaitu
+                        untuk pengalaman yang lebih baik, efektif dan efisien bagi admin perpustakaan. Sehingga pustakawan
+                        atau admin tidak perlu melakukan administrasi buku perpustakaan secara manual.</p>
                 </div>
             </div>
         </div>
