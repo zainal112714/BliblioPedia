@@ -58,7 +58,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
-         $messages = [
+        $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.',
             // 'size' => 'Panjang :attribute harus 3 karakter.'
@@ -88,7 +88,7 @@ class BookController extends Controller
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
-        Alert::success('Added Sucessfully', 'Book Data Added Successfully');
+        Alert::success('Data Buku Berhasil Dibuat', 'Data Buku Telah Berhasil Ditambahkan');
         return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
@@ -179,6 +179,8 @@ class BookController extends Controller
 
             $book->save();
 
+            Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
+
             return redirect()->route('books.index');
         }
 
@@ -193,7 +195,7 @@ class BookController extends Controller
         // ELOQUENT
         $book = Book::find($id);
         $book->delete();
-        Alert::success('Deleted Successfully', 'Book Inventory Data Deleted Successfully.');
+        Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');
     }
 
