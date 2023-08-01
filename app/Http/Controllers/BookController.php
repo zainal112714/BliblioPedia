@@ -42,8 +42,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create book
+
          $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.',
@@ -107,16 +106,16 @@ class BookController extends Controller
     {
         $messages = [
             'required' => ':Attribute harus diisi.',
-            'numeric' => 'Isi :attribute dengan angka.',
+            'code' => 'Isi :attribute dengan angka'
         ];
 
         $validator = Validator::make($request->all(), [
             'code' => 'numeric',
             'title' => 'required',
-            'genre' => 'required',
+            'genre' => 'required', // Fix the field name to 'genre'
             'author' => 'required',
             'publisher' => 'required',
-            'synopsis' => 'required',
+            'synopsis' => 'required'
         ], $messages);
 
         if ($validator->fails()) {
@@ -126,7 +125,7 @@ class BookController extends Controller
         $file = $request->file('file');
 
         // GET FILE
-        if ($request->hasFile('file')) {
+        if ($file != null) {
             $originalFilename = $file->getClientOriginalName();
             $encryptedFilename = $file->hashName();
 
@@ -137,24 +136,26 @@ class BookController extends Controller
             if ($book->encrypted_filename) {
                 Storage::delete('public/files/' . $book->encrypted_filename);
             }
+        }
 
-            // ELOQUENT
-            $book->code = $request->code;
-            $book->title = $request->title;
-            $book->genre = $request->genre;
-            $book->author = $request->author;
-            $book->publisher = $request->publisher;
-            $book->synopsis = $request->synopsis;
+        // ELOQUENT
+        $book = Book::find($id);
+        $book->code = $request->code;
+        $book->title = $request->title;
+        $book->genre = $request->genre; // Correct the field name to 'genre'
+        $book->author = $request->author;
+        $book->publisher = $request->publisher;
+        $book->synopsis = $request->synopsis;
 
+        if ($file != null) {
             $book->original_filename = $originalFilename;
             $book->encrypted_filename = $encryptedFilename;
-
-            $book->save();
-
-            return redirect()->route('books.index');
         }
-    }
 
+        $book->save();
+
+        return redirect()->route('books.index');
+    }
     /**
      * Remove the specified resource from storage.
      */
