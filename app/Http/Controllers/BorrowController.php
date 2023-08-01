@@ -26,7 +26,7 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $pageTitle= 'List Peminjam';
+        $pageTitle= 'Borrow List';
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
