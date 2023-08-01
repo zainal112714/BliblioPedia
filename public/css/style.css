@@ -1,3 +1,4 @@
+
 .navbar-logo {
     width: 125px;
     /* Atur lebar logo */
@@ -39,3 +40,25 @@
     background-color: #E1CA9C;
     color: #293F59;
 }
+
+.login-logo {
+    width: 100px;
+    height: auto;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.bg{
+    background-color: #293F59;
+}
+
+.bg-about{
+    background-color: #F6F4EB;
+}
+
+

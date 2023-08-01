@@ -219,8 +219,9 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
     <!-- About -->
-    <div class="bg-light mt-5" id="About">
+    <div class="bg-about mt-5" id="About">
         <div class="container py-5 px-4">
             <div class="row">
                 <div class="col-md-5 order-md-2">
@@ -237,6 +238,12 @@
             </div>
         </div>
     </div>
+
+    {{-- Koleksi Buku Popular --}}
+    <div class="bg-popular">
+        <div class="container text-center">
+            <h1 class="mt-5" id="Popular">Koleksi Buku Terpopuler</h1><br><br>
+            
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 <hr></hr>
 	<div class="container my-3 mt-5" id="featureContainer">
@@ -360,3 +367,4 @@
 	</script>
 </body>
 </html>
+
