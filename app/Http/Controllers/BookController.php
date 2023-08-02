@@ -21,6 +21,7 @@ class BookController extends Controller
     public function index()
     {
         $pageTitle = 'Books List';
+        
         confirmDelete();
 
         return view('book.index', compact('pageTitle'));
