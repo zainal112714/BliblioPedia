@@ -205,6 +205,11 @@ class BorrowController extends Controller
     {
         // ELOQUENT
         $borrow = Borrow::find($id);
+        // menghapus file yang terhubung jika ada
+        if ($borrow->encrypted_file) {
+            Storage::delete('public/files/'.$borrow->encrypted_file);
+        }
+
         $borrow->delete();
         Alert::success('Data buku berhasil dihapus.');
         return redirect()->route('borrows.index');
