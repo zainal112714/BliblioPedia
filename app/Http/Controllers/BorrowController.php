@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Borrow;
 // untuk model book
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+
 
 class BorrowController extends Controller
 {
@@ -22,7 +26,7 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $pageTitle= 'List Peminjam';
+        $pageTitle= 'Borrow List';
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
@@ -55,7 +59,7 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
+         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create borrow
         $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.'
@@ -101,7 +105,7 @@ class BorrowController extends Controller
         }
         $borrow->save();
 
-        Alert::success('Added Sucessfully', 'Borrow Data Added Successfully');
+        Alert::success('Data Peminjam Berhasil Dibuat', 'Data Peminjam Telah Berhasil Ditambahkan');
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
@@ -165,7 +169,7 @@ class BorrowController extends Controller
             // STORE FILE
                 $file->store('public/files');
 
-            $employee = Borrow::find($id);
+            $borrow = Borrow::find($id);
                 if ($borrow->encrypted_filename) {
                 Storage::delete('public/files/' . $borrow->encrypted_filename);
             }
@@ -186,8 +190,11 @@ class BorrowController extends Controller
 
             $borrow->save();
 
+            Alert::success('Data peminjaman berhasil diedit', 'Tanggal Peminjaman Telah Berubah.');
+
             return redirect()->route('borrows.index');
             }
+
 
     }
 
@@ -199,7 +206,7 @@ class BorrowController extends Controller
         // ELOQUENT
         $borrow = Borrow::find($id);
         $borrow->delete();
-        Alert::success('Deleted Successfully', 'Borrow Data Deleted Successfully.');
+        Alert::success('Data buku berhasil dihapus.');
         return redirect()->route('borrows.index');
     }
 
@@ -221,6 +228,7 @@ class BorrowController extends Controller
     public function getData(Request $request)
     {
         $borrows = Borrow::with('book');
+
         if ($request->ajax()) {
             return datatables()->of($borrows )
                 ->addIndexColumn()
@@ -228,12 +236,26 @@ class BorrowController extends Controller
                     return view('borrow.actions', compact('borrow'));
                 })
                 ->addColumn('genre', function ($borrow) {
-                    return $borrow->book->genre; // <-- Perbaiki di sini
+                    return $borrow->book->genre;
                 })
                 ->addColumn('return_date', function ($borrow) {
-                    return $borrow->return_date; // <-- Perbaiki di sini
+                    return $borrow->return_date;
                 })
                 ->toJson();
         }
     }
+
+    public function downloadFile($borrowId)
+{
+    $borrow = Borrow::find($borrowId);
+    $encryptedFile = 'public/files/'.$borrow->encrypted_file;
+    $downloadFile = \Illuminate\Support\Str::lower($borrow->name.'_'.$borrow->book->code.'_identitas.pdf');
+
+    if(Storage::exists($encryptedFile)) {
+        return Storage::download($encryptedFile, $downloadFile);
+    }
+}
+
+
+
 }

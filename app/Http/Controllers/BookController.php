@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Exports\BooksExport;
 use Illuminate\Http\Request;
-// validator
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Borrow;
 use App\Models\Book;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
-
 
 class BookController extends Controller
 {
@@ -22,14 +20,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $pageTitle= 'Books List';
-        // eloquent
-        // $books = Book::all(); // Mengambil semua data buku dari database menggunakan model Book
-
-        // return view('book.index', [
-        //     'pageTitle' => $pageTitle,
-        //     'books' => $books
-        // ]);
+        $pageTitle = 'Books List';
         confirmDelete();
 
         return view('book.index', compact('pageTitle'));
@@ -40,16 +31,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        $pageTitle= 'Create Book';
-        // // SQL QUERY BUILDER
-        // $books = DB::table('books')->get();
+        $pageTitle = 'Create Book';
+        $books = Book::all();
 
-        // ELOQUENT
-        $books = book::all();
-        return view('book.create', [
-            'pageTitle' => $pageTitle,
-            'books' => $books
-        ]);
+        return view('book.create', compact('pageTitle', 'books'));
     }
 
     /**
@@ -58,15 +43,15 @@ class BookController extends Controller
     public function store(Request $request)
     {
          // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
-         $messages = [
+        $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.',
-            // 'size' => 'Panjang :attribute harus 3 karakter.'
             'digits' => ':Attribute harus berupa :digits digit.',
+            'unique' => ':Attribute sudah ada.',
         ];
-        // validasi inputan
+
         $validator = Validator::make($request->all(), [
-            'code' => 'required|numeric|unique:books,code|digits:3', //untuk memastikan kolom kode buku diisi dengan unik 3 karakter
+            'code' => 'required|numeric|unique:books,code|digits:3',
             'title' => 'required',
             'genre' => 'required',
             'author' => 'required',
@@ -88,7 +73,7 @@ class BookController extends Controller
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
-        Alert::success('Added Sucessfully', 'Book Data Added Successfully');
+        Alert::success('Data Buku Berhasil Dibuat', 'Data Buku Telah Berhasil Ditambahkan');
         return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
@@ -98,8 +83,6 @@ class BookController extends Controller
     public function show(string $id)
     {
         $pageTitle = 'Book Detail';
-
-        // ELOQUENT
         $book = Book::find($id);
 
         return view('book.show', compact('pageTitle', 'book'));
@@ -110,94 +93,83 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        {
-            $pageTitle = 'Edit Book';
+        $pageTitle = 'Edit Book';
+        $book = Book::find($id);
 
-            // ELOQUENT
-            $borrows = Borrow::all();
-            $book = Book::find($id);
-
-            return view('book.edit', compact('pageTitle', 'book', 'borrows'));
-        }
+        return view('book.edit', compact('pageTitle', 'book'));
     }
 
-/**
-* Update the specified resource in storage.
-*/
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
-        {
-            $messages = [
-                'required' => ':Attribute harus diisi.',
-                'code' => 'Isi :attribute dengan angka'
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            'code' => 'Isi :attribute dengan angka'
+        ];
 
-            ];
+        $validator = Validator::make($request->all(), [
+            'code' => 'numeric',
+            'title' => 'required',
+            'genre' => 'required', // Fix the field name to 'genre'
+            'author' => 'required',
+            'publisher' => 'required',
+            'synopsis' => 'required'
+        ], $messages);
 
-            $validator = Validator::make($request->all(), [
-                'code' => 'numeric',
-                'title' => 'required',
-                'genre' => 'required',
-                'author' => 'required',
-                'publisher' => 'required',
-                'synopsis' => 'required'
-            ], $messages);
-
-            if ($validator->fails()) {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
-            }
+        }
 
-            $file = $request->file('file');
+        $file = $request->file('file');
 
-            // GET FILE
-            if ($file != null) {
-                $originalFilename = $file->getClientOriginalName();
-                $encryptedFilename = $file->hashName();
+        // GET FILE
+        if ($file != null) {
+            $originalFilename = $file->getClientOriginalName();
+            $encryptedFilename = $file->hashName();
 
             // STORE FILE
-                $file->store('public/files');
+            $file->store('public/files');
 
             $book = Book::find($id);
-                if ($book->encrypted_filename) {
+            if ($book->encrypted_filename) {
                 Storage::delete('public/files/' . $book->encrypted_filename);
             }
         }
 
-            // ELOQUENT
-            $book = book::find($id);
-            $book->code = $request->code;
-            $book->title = $request->title;
-            $book->genre = $request->genre;
-            $book->author = $request->author;
-            $book->publisher = $request->publisher;
-            $book->synopsis = $request->synopsis;
+        // ELOQUENT
+        $book = Book::find($id);
+        $book->code = $request->code;
+        $book->title = $request->title;
+        $book->genre = $request->genre; // Correct the field name to 'genre'
+        $book->author = $request->author;
+        $book->publisher = $request->publisher;
+        $book->synopsis = $request->synopsis;
 
-
-            if ($file != null){
+        if ($file != null) {
             $book->original_filename = $originalFilename;
             $book->encrypted_filename = $encryptedFilename;
         }
 
             $book->save();
 
+            Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
+
             return redirect()->route('books.index');
-        }
-
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        // ELOQUENT
         $book = Book::find($id);
         $book->delete();
-        Alert::success('Deleted Successfully', 'Book Inventory Data Deleted Successfully.');
+        Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');
     }
 
-    public function exportExcel() //exportExcel iki di panggil nang ndi engkok
+    public function exportExcel()
     {
         return Excel::download(new BooksExport, 'books.xlsx');
     }
@@ -210,7 +182,6 @@ class BookController extends Controller
 
         return $pdf->download('books.pdf');
     }
-
 
     // datatable
     public function getData(Request $request)

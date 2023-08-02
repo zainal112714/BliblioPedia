@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('contact');
-            $table->foreignId('book_id')->constrained();
             $table->date('borrowed_date');
             $table->date('return_date')->default(now()->addDays(7));
+            $table->foreignId('book_id')->constrained();
             $table->timestamps();
         });
     }
