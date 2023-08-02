@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('genre');
             $table->string('author');
             $table->string('publisher');
+            $table->string('images');
             $table->text('synopsis')->nullable();
             $table->timestamps();
         });

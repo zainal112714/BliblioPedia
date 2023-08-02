@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,7 @@ Route::get('exportPdfs', [BorrowController::class, 'exportPdfs'])->name('borrows
 Route::get('getBooks', [BookController::class, 'getData'])->name('books.getData');
 // Server-side Processing DataTable Peminjam
 Route::get('getBorrows', [BorrowController::class, 'getData'])->name('borrows.getData');
+
+
+
+Route::get('getDetails', [DetailController::class, 'show'])->name('details.book');

@@ -57,12 +57,19 @@ class BookController extends Controller
             'genre' => 'required',
             'author' => 'required',
             'publisher' => 'required',
+            'image' => 'required',
             'synopsis' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $image = $request->file('image');
+        $folder = 'images/';
+
+        $filePath = $folder . $image->getClientOriginalName();
+        $image->move($folder, $image->getClientOriginalName());
 
         // Simpan data buku ke database dengan eloquent
         $book = new Book();
@@ -71,6 +78,7 @@ class BookController extends Controller
         $book->genre = $request->input('genre');
         $book->author = $request->input('author');
         $book->publisher = $request->input('publisher');
+        $book->images = $filePath;
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
