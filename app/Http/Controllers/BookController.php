@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -21,6 +22,7 @@ class BookController extends Controller
     public function index()
     {
         $pageTitle = 'Books List';
+
         confirmDelete();
 
         return view('book.index', compact('pageTitle'));
@@ -152,11 +154,11 @@ class BookController extends Controller
             $book->encrypted_filename = $encryptedFilename;
         }
 
-            $book->save();
+        $book->save();
 
-            Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
+        Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
 
-            return redirect()->route('books.index');
+        return redirect()->route('books.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -164,6 +166,11 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         $book = Book::find($id);
+        // menghapus file yang terhubung jika ada (masih belom bisa)
+        // if ($book->image) {
+        //     Storage::delete('public/images/'.$book->image);
+        // }
+
         $book->delete();
         Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');
