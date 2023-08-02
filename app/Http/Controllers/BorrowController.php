@@ -26,7 +26,7 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $pageTitle= 'List Peminjam';
+        $pageTitle= 'Borrow List';
         // ambil data
         // $borrows = Borrow::with('book')->get();
         // eloquent
@@ -105,7 +105,7 @@ class BorrowController extends Controller
         }
         $borrow->save();
 
-        Alert::success('Added Sucessfully', 'Borrow Data Added Successfully');
+        Alert::success('Data Peminjam Berhasil Dibuat', 'Data Peminjam Telah Berhasil Ditambahkan');
         return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
     }
 
@@ -190,6 +190,8 @@ class BorrowController extends Controller
 
             $borrow->save();
 
+            Alert::success('Data peminjaman berhasil diedit', 'Tanggal Peminjaman Telah Berubah.');
+
             return redirect()->route('borrows.index');
             }
 
@@ -204,7 +206,7 @@ class BorrowController extends Controller
         // ELOQUENT
         $borrow = Borrow::find($id);
         $borrow->delete();
-        Alert::success('Deleted Successfully', 'Borrow Data Deleted Successfully.');
+        Alert::success('Data buku berhasil dihapus.');
         return redirect()->route('borrows.index');
     }
 

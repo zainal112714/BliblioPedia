@@ -15,6 +15,12 @@
                     <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#About">{{ __('About') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Popular">{{ __('Popular') }}</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('books.index') }}">{{ __('Books List') }}</a>
                 </li>
                 <li class="nav-item">

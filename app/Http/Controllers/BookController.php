@@ -42,8 +42,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-
-         $messages = [
+         // Mendefinisikan pesan yang ditampilkan saat terjadi kesalahan inputan pada form create employee
+        $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => 'Isi :attribute dengan angka.',
             'digits' => ':Attribute harus berupa :digits digit.',
@@ -73,7 +73,7 @@ class BookController extends Controller
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
-        Alert::success('Added Successfully', 'Book Data Added Successfully');
+        Alert::success('Data Buku Berhasil Dibuat', 'Data Buku Telah Berhasil Ditambahkan');
         return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
@@ -152,9 +152,11 @@ class BookController extends Controller
             $book->encrypted_filename = $encryptedFilename;
         }
 
-        $book->save();
+            $book->save();
 
-        return redirect()->route('books.index');
+            Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
+
+            return redirect()->route('books.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -163,7 +165,7 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->delete();
-        Alert::success('Deleted Successfully', 'Book Inventory Data Deleted Successfully.');
+        Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');
     }
 
