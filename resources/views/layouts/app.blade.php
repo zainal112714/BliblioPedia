@@ -24,6 +24,7 @@
         @include('layouts.nav')
         @yield('content')
         @vite('resources/js/app.js')
+        @vite('resources/sass/app.scss')
         @include('sweetalert::alert')
         @stack('scripts')
     </div>
