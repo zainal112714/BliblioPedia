@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-sm mt-5">
-    <form action="{{ route('books.store') }}" method="POST">
+    <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row justify-content-center">
             <div class="p-5 bg-secondary-subtle rounded-3 border col-xl-8">
@@ -64,6 +64,13 @@
                         <label for="publisher" class="form-label">Publisher</label>
                         <input type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher" id="publisher" value="{{ old('publisher') }}" placeholder="Enter Publisher">
                         @error('publisher')
+                        <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Upload Image</label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image">
+                        @error('image')
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>

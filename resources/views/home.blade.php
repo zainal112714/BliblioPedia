@@ -197,78 +197,20 @@
 					</a>
 				</div>
 				<div class="carousel-inner" role="listbox">
-					<div class="carousel-item active">
+                    @foreach ( $books as $book )
+                    <div class="carousel-item active">
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="{{ asset('images/kata.jpeg') }}" class="img-fluid">
+									<img src="{{ asset($book->images) }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Kata</h5>
-                            <p class="card-text">Tokoh Binta diceritakan dalam novel sebagai seorang gadis yang cantik nan menggemaskan. Tetapi, ia hidup dalam ruang lingkup yang sangat rapuh</p>
-                        <a href="#" class="btn btn-primary" style="width: 4en;">Detail</a>
+								<h5 class="card-title">{{$book->title}}</h5>
+                            <p class="card-text">{{$book->synopsis}}</p>
+                        <a href="{{ route('books.show', ['book' => $book->id]) }}" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
 					</div>
-					<div class="carousel-item">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-img">
-									<img src="{{ asset('images/hujan.jpg') }}" class="img-fluid">
-								</div>
-								<h5 class="card-title">Hujan</h5>
-                            <p class="card-text">Inilah yang menimbulkan konflik dalam cerita. Pertama-tama, diawali dengan kedatangan Lail yang akan memodifikasi ingatannya di pusat terapi saraf.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-img">
-									<img src="{{ asset('images/horor.jpeg') }}" class="img-fluid">
-								</div>
-								<h5 class="card-title">Kisah nyata di 13 Kota</h5>
-                            <p class="card-text">Kumpulan Kisah Nyata Hantu di 13 Kota adalah buku yang ditulis oleh Argo Wikanjati. Buku ini berisi kumpulan kisah nyata tentang hantu di 13 kota di Indonesia. </p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-img">
-									<img src="{{ asset('images/alam_semesta.jpg') }}" class="img-fluid">
-								</div>
-								<h5 class="card-title">Ensiklopedia Ruang Angkasa</h5>
-                            <p class="card-text">Di dunia ini, tidak hanya Bumi saja tempat di mana kita tinggal. Di atas Bumi juga tidak hanya langit saja, melainkan masih banyak benda dan hal-hal lain yang perlu kita tahu.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-img">
-									<img src="{{ asset('images/bung_karno.jpeg') }}" class="img-fluid">
-								</div>
-								<h5 class="card-title">Bung Karno</h5>
-                            <p class="card-text">Memiliki nama asli Koesno Sosrodihardjo, Soekarno lahir di Jl. Pandean IV No 40, Kel. Paneleh, Kec. Genteng, Kota Surabaya pada 6 Juni 1901.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="col-md-3">
-							<div class="card">
-								<div class="card-img">
-									<img src="{{ asset('images/dunia.jpeg') }}" class="img-fluid">
-								</div>
-								<h5 class="card-title">Sejarah Dunia Yang Disembunyikan</h5>
-                            <p class="card-text">Buku yang diterjemahkan oleh Isma B. Soekanto dan Adi Toha ini jadi salah satu buku dari sekian banyaknya buku yang menceritakan tentang sejarah. </p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-							</div>
-						</div>
-					</div>
+                    @endforeach
 				</div>
 
 			</div>
@@ -305,4 +247,3 @@
 	</script>
 </body>
 </html>
-
