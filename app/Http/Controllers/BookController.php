@@ -12,6 +12,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {

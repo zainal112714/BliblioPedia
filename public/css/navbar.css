@@ -8,5 +8,7 @@
 @media (max-width: 768px) {
 .navbar {
         background-color: #293F59;
+        position: fixed;
+
     }
 }
