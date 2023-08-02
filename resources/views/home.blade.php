@@ -261,10 +261,10 @@
 						<div class="col-md-3">
 							<div class="card">
 								<div class="card-img">
-									<img src="{{ asset('images/Tentang Kehidupan.jpeg') }}" class="img-fluid">
+									<img src="{{ asset('images/dunia.jpeg') }}" class="img-fluid">
 								</div>
-								<h5 class="card-title">Tentang Kehidupan</h5>
-                            <p class="card-text">Buku ini menceritakan kisah hidup seorang pengusaha sukses bernama Merry Riana, miliuner muda yang kini terkenal sebagai motivator dan penulis buku.</p>
+								<h5 class="card-title">Sejarah Dunia Yang Disembunyikan</h5>
+                            <p class="card-text">Buku yang diterjemahkan oleh Isma B. Soekanto dan Adi Toha ini jadi salah satu buku dari sekian banyaknya buku yang menceritakan tentang sejarah. </p>
                         <a href="#" class="btn btn-primary">Detail</a>
 							</div>
 						</div>
