@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="book_id" class="form-label">Book</label>
-                        <select class="form-select @error('book_id') is-invalid @enderror" name="book_id" id="book_id">
+                        <select class="form-select select2 @error('book_id') is-invalid @enderror" name="book_id" id="book_id">
                             <option value="">Select Book</option>
                             @foreach($books as $book)
                                 <option value="{{ $book->id }}" {{ old('book_id') == $book->id ? 'selected' : '' }}>{{ $book->code.' - '.$book->title }}</option>
@@ -71,4 +71,12 @@
     </form>
 </div>
 @vite('resources/sass/app.scss')
+@vite('resources/js/app.js')
+{{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+
 @endsection
