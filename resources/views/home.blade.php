@@ -200,7 +200,7 @@
                     @foreach ( $books as $book )
                     <div class="carousel-item active">
 						<div class="col-md-3">
-							<div class="card">
+							<div class="card d-flex">
 								<div class="card-img">
 									<img src="{{ asset($book->images) }}" class="img-fluid">
 								</div>

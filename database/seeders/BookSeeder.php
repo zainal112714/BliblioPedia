@@ -43,7 +43,7 @@ class BookSeeder extends Seeder
                 'genre' => 'Pendidikan',
                 'author' => 'Cindy',
                 'publisher' => 'Gramedia',
-                'images' => 'images/bung_karno.jpeg',
+                'images' => 'images/ensiklopedia.png',
                 'synopsis' => 'Di dunia ini, tidak hanya Bumi saja tempat di mana kita tinggal. Di atas Bumi juga tidak hanya langit saja, melainkan masih banyak benda dan hal-hal lain yang perlu kita tahu.'
             ],
             [
