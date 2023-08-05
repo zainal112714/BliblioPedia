@@ -12,6 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -21,7 +22,7 @@ class BookController extends Controller
     public function index()
     {
         $pageTitle = 'Books List';
-        
+
         confirmDelete();
 
         return view('book.index', compact('pageTitle'));
@@ -57,19 +58,12 @@ class BookController extends Controller
             'genre' => 'required',
             'author' => 'required',
             'publisher' => 'required',
-            'image' => 'required',
             'synopsis' => 'required',
         ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $image = $request->file('image');
-        $folder = 'images/';
-
-        $filePath = $folder . $image->getClientOriginalName();
-        $image->move($folder, $image->getClientOriginalName());
 
         // Simpan data buku ke database dengan eloquent
         $book = new Book();
@@ -78,7 +72,6 @@ class BookController extends Controller
         $book->genre = $request->input('genre');
         $book->author = $request->input('author');
         $book->publisher = $request->input('publisher');
-        $book->images = $filePath;
         $book->synopsis = $request->input('synopsis');
         $book->save();
 
@@ -161,11 +154,11 @@ class BookController extends Controller
             $book->encrypted_filename = $encryptedFilename;
         }
 
-            $book->save();
+        $book->save();
 
-            Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
+        Alert::success('Data buku berhasil diedit', 'Data Buku Telah Berubah.');
 
-            return redirect()->route('books.index');
+        return redirect()->route('books.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -173,6 +166,11 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         $book = Book::find($id);
+        // menghapus file yang terhubung jika ada (masih belom bisa)
+        // if ($book->image) {
+        //     Storage::delete('public/images/'.$book->image);
+        // }
+
         $book->delete();
         Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');
