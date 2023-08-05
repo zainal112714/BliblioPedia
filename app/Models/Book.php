@@ -12,7 +12,7 @@ class Book extends Model
 
     protected $table = 'books';
 
-    protected $fillable = ['title', 'genre', 'author', 'publisher', 'synopsis'];
+    protected $fillable = ['title', 'genre', 'author', 'publisher', 'image' ,'synopsis'];
 
     // Relationship dengan model Borrow
     public function borrows()
