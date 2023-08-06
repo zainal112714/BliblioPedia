@@ -243,9 +243,9 @@ class BorrowController extends Controller
                 ->addColumn('genre', function ($borrow) {
                     return $borrow->book->genre;
                 })
-                ->addColumn('return_date', function ($borrow) {
-                    return $borrow->return_date;
-                })
+                // ->addColumn('return_date', function ($borrow) {
+                //     return $borrow->return_date;
+                // })
                 ->toJson();
         }
     }

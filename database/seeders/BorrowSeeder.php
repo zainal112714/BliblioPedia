@@ -17,7 +17,7 @@ class BorrowSeeder extends Seeder
     public function run(): void
     {
          // Menggunakan factory Borrow untuk membuat 3 data dummy
-         Borrow::factory()->count(5)->create();
+         Borrow::factory()->count(200)->create();
         // untuk mendapatkan data yang memiliki judul tertentu
         // $book1 = Book::where('title', 'Book Title 1')->first();
         // $book2 = Book::where('title', 'Book Title 2')->first();
