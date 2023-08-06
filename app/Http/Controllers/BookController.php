@@ -114,7 +114,7 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), [
             'code' => 'numeric',
             'title' => 'required',
-            'genre' => 'required', // Fix the field name to 'genre'
+            'genre' => 'required',
             'author' => 'required',
             'publisher' => 'required',
             'synopsis' => 'required'
@@ -144,7 +144,7 @@ class BookController extends Controller
         $book = Book::find($id);
         $book->code = $request->code;
         $book->title = $request->title;
-        $book->genre = $request->genre; // Correct the field name to 'genre'
+        $book->genre = $request->genre;
         $book->author = $request->author;
         $book->publisher = $request->publisher;
         $book->synopsis = $request->synopsis;
@@ -166,11 +166,6 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         $book = Book::find($id);
-        // menghapus file yang terhubung jika ada (masih belom bisa)
-        // if ($book->image) {
-        //     Storage::delete('public/images/'.$book->image);
-        // }
-
         $book->delete();
         Alert::success('Data buku berhasil dihapus');
         return redirect()->route('books.index');

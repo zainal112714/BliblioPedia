@@ -107,7 +107,7 @@ class BorrowController extends Controller
         $borrow->save();
 
         Alert::success('Data Peminjam Berhasil Dibuat', 'Data Peminjam Telah Berhasil Ditambahkan');
-        return redirect()->route('borrows.index')->with('success', 'Book created successfully.');
+        return redirect()->route('borrows.index');
     }
 
     /**
@@ -259,7 +259,4 @@ class BorrowController extends Controller
         return Storage::download($encryptedFile, $downloadFile);
     }
 }
-
-
-
 }

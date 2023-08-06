@@ -25,14 +25,6 @@
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    {{-- <div class="mb-3">
-                        <label for="genre" class="form-label">Genre</label>
-                        <input type="text" class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre" value="{{ old('genre') }}" placeholder="Enter Genre">
-                        @error('genre')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div> --}}
-                    {{-- pilih genre yang baru --}}
                     <div class="mb-3">
                         <label for="genre" class="form-label">Genre</label>
                         <select class="form-select @error('genre') is-invalid @enderror" name="genre" id="genre" value="{{ old('genre') }}">
