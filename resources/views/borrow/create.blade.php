@@ -53,7 +53,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">Upload File Identitas</label>
-                        <input type="file" class="form-control" name="file" id="file">
+                        <input type="file" class="form-control @error('file') is-invalid @enderror" name="file" id="file">
+                        @error('file')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
 
                 </div>
@@ -70,13 +73,4 @@
         </div>
     </form>
 </div>
-@vite('resources/sass/app.scss')
-@vite('resources/js/app.js')
-{{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
-
 @endsection

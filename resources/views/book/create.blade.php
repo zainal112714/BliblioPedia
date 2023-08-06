@@ -95,5 +95,4 @@
         </div>
     </form>
 </div>
-@vite('resources/sass/app.scss')
 @endsection

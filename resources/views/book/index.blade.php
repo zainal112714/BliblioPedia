@@ -47,8 +47,6 @@
                 </table>
             </div>
         </div>
-        @vite('resources/sass/app.scss')
-        @vite('resources/js/app.js')
         {{-- @stack('scripts') --}}
         <script type="module">
             $(document).ready(function() {

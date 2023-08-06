@@ -73,6 +73,7 @@ class BorrowController extends Controller
             // 'genre' => 'required',
             'borrowed_date' => 'required',
             'return_date' => 'required',
+            'file' => 'required'
         ], $messages);
 
         if ($validator->fails()) {
@@ -152,7 +153,8 @@ class BorrowController extends Controller
                 'contact' => 'numeric',
                 'title' => 'required',
                 'borrowed_date' => 'required',
-                'return_date' => 'required'
+                'return_date' => 'required',
+                'file' => 'require'
             ], $messages);
 
             if ($validator->fails()) {
@@ -243,9 +245,6 @@ class BorrowController extends Controller
                 ->addColumn('genre', function ($borrow) {
                     return $borrow->book->genre;
                 })
-                // ->addColumn('return_date', function ($borrow) {
-                //     return $borrow->return_date;
-                // })
                 ->toJson();
         }
     }
