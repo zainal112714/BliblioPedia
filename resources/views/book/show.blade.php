@@ -10,9 +10,6 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-12 d-grid">
-                        <img src="{{ asset($book->images) }}" class="img-fluid">
-                    </div>
                     <div class="col-md-4 mb-3">
                         <label for="title" class="form-label">Title</label>
                         <h5>{{ $book->title }}</h5>
